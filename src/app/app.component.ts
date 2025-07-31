@@ -102,8 +102,12 @@ export class AppComponent {
       'Hacer una declaración de amor épica',
       'Shot de tequila'
     ];
-    const normalizedRotation = (360 - (this.currentRotation % 360)) % 360;
-    const segmentIndex = Math.floor(normalizedRotation / 45) % 8;
+    
+    // Corregir el cálculo del segmento
+    // El puntero está en la parte superior (0 grados)
+    // Necesitamos calcular qué segmento está apuntando el puntero
+    const normalizedRotation = this.currentRotation % 360;
+    const segmentIndex = Math.floor((360 - normalizedRotation) / 45) % 8;
     this.result = `🎯 Desafío: ${tasks[segmentIndex]}`;
   }
 
