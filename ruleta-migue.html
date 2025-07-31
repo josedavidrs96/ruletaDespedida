@@ -122,31 +122,31 @@
         .segment:nth-child(1) .segment-slice { transform: rotate(0deg); }
         .segment:nth-child(1) .segment-content { 
             background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(2) .segment-slice { transform: rotate(45deg); }
         .segment:nth-child(2) .segment-content { 
             background: linear-gradient(135deg, #4ECDC4, #6ED5CC);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(3) .segment-slice { transform: rotate(90deg); }
         .segment:nth-child(3) .segment-content { 
             background: linear-gradient(135deg, #45B7D1, #67C3D9);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(4) .segment-slice { transform: rotate(135deg); }
         .segment:nth-child(4) .segment-content { 
             background: linear-gradient(135deg, #96CEB4, #A8D6C2);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(5) .segment-slice { transform: rotate(180deg); }
         .segment:nth-child(5) .segment-content { 
             background: linear-gradient(135deg, #FFEAA7, #FFF0B8);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
             color: #333;
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
@@ -154,19 +154,19 @@
         .segment:nth-child(6) .segment-slice { transform: rotate(225deg); }
         .segment:nth-child(6) .segment-content { 
             background: linear-gradient(135deg, #DDA0DD, #E6B3E6);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(7) .segment-slice { transform: rotate(270deg); }
         .segment:nth-child(7) .segment-content { 
             background: linear-gradient(135deg, #98D8C8, #AAE0D2);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
         }
 
         .segment:nth-child(8) .segment-slice { transform: rotate(315deg); }
         .segment:nth-child(8) .segment-content { 
             background: linear-gradient(135deg, #F7DC6F, #F9E79F);
-            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 100%);
             color: #333;
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
@@ -505,17 +505,60 @@
 
         @keyframes segmentPulse {
             0%, 100% { 
-                transform: scale(1);
+                transform: scale(1) rotate(0deg);
+            }
+            25% { 
+                transform: scale(1.15) rotate(2deg);
             }
             50% { 
-                transform: scale(1.1);
+                transform: scale(1.2) rotate(-1deg);
+            }
+            75% { 
+                transform: scale(1.15) rotate(1deg);
             }
         }
 
         .segment-selected .segment-content {
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 
-                        0 0 60px rgba(255, 215, 0, 0.4);
-            border: 3px solid rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.9), 
+                        0 0 80px rgba(255, 215, 0, 0.6),
+                        0 0 120px rgba(255, 215, 0, 0.3),
+                        inset 0 0 20px rgba(255, 215, 0, 0.3);
+            border: 4px solid rgba(255, 215, 0, 1);
+            animation: contentGlow 1.5s ease-in-out 3;
+            position: relative;
+        }
+
+        .segment-selected .segment-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            border-radius: inherit;
+            z-index: -1;
+            animation: borderGlow 1.5s ease-in-out 3;
+        }
+
+        @keyframes contentGlow {
+            0%, 100% { 
+                filter: brightness(1) contrast(1);
+            }
+            50% { 
+                filter: brightness(1.3) contrast(1.2);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.05);
+            }
         }
     </style>
 </head>
@@ -698,52 +741,69 @@
                 const time = i / sampleRate;
                 const progress = time / duration;
                 
-                // Sonido de fricción de fondo más natural
-                const frictionFreq = 180 * (1 - progress * 0.4);
-                const friction = 0.12 * (1 - progress) * (Math.random() - 0.5) * Math.sin(time * frictionFreq * Math.PI * 2);
+                // Sonido de fricción de fondo más natural - simula el rozamiento del eje
+                const frictionFreq = 150 * (1 - progress * 0.5);
+                const friction = 0.15 * (1 - progress * 0.8) * (Math.random() - 0.5) * Math.sin(time * frictionFreq * Math.PI * 2);
                 
-                // Clicks de la ruleta que se hacen más lentos - simulando los 8 segmentos
-                const segmentClicksPerSecond = 8 * 5 * (1 - progress * 0.95); // 8 segmentos, 5 clicks por segundo por segmento inicialmente
+                // Clicks de la ruleta que se hacen más lentos - simulando los 8 segmentos triangulares
+                const initialClicksPerSecond = 40; // Más clicks al inicio
+                const finalClicksPerSecond = 2; // Menos clicks al final
+                const segmentClicksPerSecond = initialClicksPerSecond * Math.pow(1 - progress, 2) + finalClicksPerSecond;
+                
                 const clickTime = (time * segmentClicksPerSecond) % 1;
-                const clickIntensity = clickTime < 0.05 ? 1 : 0;
-                const click = clickIntensity * 0.4 * (1 - progress * 0.3) * Math.exp(-clickTime * 20);
+                const clickIntensity = clickTime < 0.03 ? 1 : 0;
+                const click = clickIntensity * 0.5 * (1 - progress * 0.4) * Math.exp(-clickTime * 30);
                 
-                // Vibración metálica más intensa al inicio
-                const metalVib = 0.08 * Math.sin(time * 600) * Math.exp(-time * 0.5) * (1 - progress * 0.7);
+                // Vibración metálica más intensa al inicio - simula la inercia
+                const metalVib = 0.1 * Math.sin(time * 800) * Math.exp(-time * 0.8) * (1 - progress * 0.6);
                 
-                // Ruido de aire y rozamiento
-                const airNoise = 0.03 * (Math.random() - 0.5) * (1 - progress * 0.9);
+                // Ruido de aire y rozamiento - más realista
+                const airNoise = 0.04 * (Math.random() - 0.5) * (1 - progress * 0.7);
                 
-                // Resonancia de la estructura metálica
-                const resonance = 0.04 * Math.sin(time * 120 * Math.PI * 2) * Math.exp(-time * 1.5) * (1 - progress);
+                // Resonancia de la estructura metálica - simula el material
+                const resonance = 0.06 * Math.sin(time * 200 * Math.PI * 2) * Math.exp(-time * 2) * (1 - progress);
                 
-                // Sonido de desaceleración final
-                const finalDecel = progress > 0.8 ? 0.1 * Math.sin(time * 50 * Math.PI * 2) * (progress - 0.8) * 5 : 0;
+                // Sonido de desaceleración final - más dramático
+                const finalDecel = progress > 0.7 ? 0.15 * Math.sin(time * 80 * Math.PI * 2) * Math.pow(progress - 0.7, 2) * 10 : 0;
                 
-                data[i] = friction + click + metalVib + airNoise + resonance + finalDecel;
+                // Sonido de "clunk" final cuando se detiene
+                const finalClunk = progress > 0.95 ? 0.3 * Math.sin(time * 300 * Math.PI * 2) * Math.exp(-(progress - 0.95) * 100) : 0;
                 
-                // Aplicar un filtro de volumen suave
-                data[i] *= Math.exp(-time * 0.2);
+                data[i] = friction + click + metalVib + airNoise + resonance + finalDecel + finalClunk;
+                
+                // Aplicar un filtro de volumen más natural
+                data[i] *= Math.exp(-time * 0.15);
             }
 
             return buffer;
         }
 
-        // Crear sonido de click final
+        // Crear sonido de click final mejorado
         function createClickSound() {
             if (!audioContext) return null;
 
-            const duration = 0.2;
+            const duration = 0.3;
             const sampleRate = audioContext.sampleRate;
             const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
             const data = buffer.getChannelData(0);
 
             for (let i = 0; i < data.length; i++) {
                 const time = i / sampleRate;
-                const envelope = Math.exp(-time * 15);
-                const click = Math.sin(time * 200 * Math.PI * 2) * envelope * 0.5;
-                const snap = Math.sin(time * 800 * Math.PI * 2) * envelope * 0.3;
-                data[i] = click + snap;
+                const envelope = Math.exp(-time * 12);
+                
+                // Click principal más satisfactorio
+                const click = Math.sin(time * 300 * Math.PI * 2) * envelope * 0.6;
+                
+                // Snap metálico
+                const snap = Math.sin(time * 1200 * Math.PI * 2) * envelope * 0.4;
+                
+                // Resonancia de baja frecuencia
+                const resonance = Math.sin(time * 80 * Math.PI * 2) * envelope * 0.3;
+                
+                // Ruido de impacto
+                const impact = (Math.random() - 0.5) * envelope * 0.2;
+                
+                data[i] = click + snap + resonance + impact;
             }
 
             return buffer;
@@ -761,10 +821,19 @@
                 spinningSound.buffer = createRealisticSpinSound();
                 
                 const gainNode = audioContext.createGain();
-                gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
+                const filterNode = audioContext.createBiquadFilter();
+                
+                // Configurar filtro para sonido más realista
+                filterNode.type = 'lowpass';
+                filterNode.frequency.setValueAtTime(8000, audioContext.currentTime);
+                filterNode.frequency.exponentialRampToValueAtTime(2000, audioContext.currentTime + 8);
+                
+                // Control de volumen más dinámico
+                gainNode.gain.setValueAtTime(0.7, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 8);
                 
-                spinningSound.connect(gainNode);
+                spinningSound.connect(filterNode);
+                filterNode.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 spinningSound.start();
             } catch (error) {
@@ -783,9 +852,19 @@
                 clickSound.buffer = clickBuffer;
                 
                 const gainNode = audioContext.createGain();
-                gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                const filterNode = audioContext.createBiquadFilter();
                 
-                clickSound.connect(gainNode);
+                // Configurar filtro para sonido de click más satisfactorio
+                filterNode.type = 'bandpass';
+                filterNode.frequency.setValueAtTime(800, audioContext.currentTime);
+                filterNode.Q.setValueAtTime(5, audioContext.currentTime);
+                
+                // Control de volumen más dinámico
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                clickSound.connect(filterNode);
+                filterNode.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 clickSound.start();
             } catch (error) {
@@ -846,16 +925,19 @@
             const challenge = challenges[segmentIndex];
             const resultDiv = document.getElementById('result');
 
-            // Animar el segmento seleccionado
+            // Animar el segmento seleccionado con efecto más dramático
             const segments = document.querySelectorAll('.segment');
             segments.forEach((segment, index) => {
                 segment.classList.remove('segment-selected');
                 if (index === segmentIndex) {
-                    segment.classList.add('segment-selected');
+                    // Añadir un pequeño delay para que el efecto sea más visible
+                    setTimeout(() => {
+                        segment.classList.add('segment-selected');
+                    }, 200);
                 }
             });
 
-            // Animación de resultado
+            // Animación de resultado mejorada
             resultDiv.className = 'result highlight';
             resultDiv.innerHTML = `
                 <div class="result-title">${challenge.title}</div>
