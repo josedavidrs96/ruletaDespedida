@@ -10,6 +10,7 @@ export class AppComponent {
   isSpinning = false;
   currentRotation = 0;
   result = 'Haz clic para girar la ruleta';
+  showOptions = false;
 
   createSpinAudio() {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -112,5 +113,9 @@ export class AppComponent {
 
   spinWithSound() {
     this.spin();
+  }
+
+  toggleOptions() {
+    this.showOptions = !this.showOptions;
   }
 } 
