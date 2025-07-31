@@ -105,9 +105,10 @@ export class AppComponent {
     
     // Corregir el cálculo del segmento
     // El puntero está en la parte superior (0 grados)
-    // Necesitamos calcular qué segmento está apuntando el puntero
+    // Los segmentos están orientados de manera que el segmento 0 está en la parte superior
     const normalizedRotation = this.currentRotation % 360;
-    const segmentIndex = Math.floor((360 - normalizedRotation) / 45) % 8;
+    // Ajustar para que el segmento correcto sea seleccionado
+    const segmentIndex = (8 - Math.floor(normalizedRotation / 45)) % 8;
     this.result = `🎯 Desafío: ${tasks[segmentIndex]}`;
   }
 
