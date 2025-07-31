@@ -1,0 +1,124 @@
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.container {
+  text-align: center;
+  max-width: 600px;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.roulette {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  margin: 30px auto;
+  position: relative;
+  transition: transform 4s ease-out;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.s1 { background: #FF6B6B; transform: rotate(0deg); }
+.s2 { background: #4ECDC4; transform: rotate(45deg); }
+.s3 { background: #45B7D1; transform: rotate(90deg); }
+.s4 { background: #96CEB4; transform: rotate(135deg); }
+.s5 { background: #FFEAA7; color: #333; transform: rotate(180deg); }
+.s6 { background: #DDA0DD; transform: rotate(225deg); }
+.s7 { background: #98D8C8; transform: rotate(270deg); }
+.s8 { background: #F7DC6F; color: #333; transform: rotate(315deg); }
+
+.spin-button {
+  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.spin-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+}
+
+.spin-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  font-size: 18px;
+  min-height: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.result h3 {
+  margin: 0 0 10px 0;
+  color: #FFEAA7;
+}
+
+.result p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .roulette {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .segment {
+    font-size: 10px;
+  }
+  
+  .spin-button {
+    padding: 12px 25px;
+    font-size: 16px;
+  }
+} 

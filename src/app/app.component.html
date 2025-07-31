@@ -1,0 +1,24 @@
+<div class="container">
+  <h1 class="title">🎉 {{ title }} 🎉</h1>
+  <p>Gira la ruleta y descubre el desafío para Migue</p>
+  
+  <div class="roulette" [style.transform]="getRotationStyle()">
+    <div class="segment s1" data-task="Cantar una canción de amor">🎤 Cantar</div>
+    <div class="segment s2" data-task="Bailar salsa por 2 minutos">💃 Bailar</div>
+    <div class="segment s3" data-task="Contar el chiste más malo">😂 Chiste</div>
+    <div class="segment s4" data-task="Hacer 15 flexiones">💪 Flexiones</div>
+    <div class="segment s5" data-task="Imitar un animal por 1 minuto">🐶 Animal</div>
+    <div class="segment s6" data-task="Decir 3 cumplidos a cada amigo">❤️ Cumplidos</div>
+    <div class="segment s7" data-task="Hacer una declaración de amor épica">💕 Amor</div>
+    <div class="segment s8" data-task="Shot de tequila">🥃 Shot</div>
+  </div>
+  
+  <button class="spin-button" (click)="spin()" [disabled]="isSpinning">
+    {{ isSpinning ? 'GIRANDO...' : '¡GIRAR RULETA!' }}
+  </button>
+  
+  <div class="result">
+    <h3 *ngIf="!isSpinning && result !== 'Haz clic para girar la ruleta'">🎯 Desafío para Migue:</h3>
+    <p>{{ result }}</p>
+  </div>
+</div> 
