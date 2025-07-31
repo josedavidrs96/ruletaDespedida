@@ -1,24 +1,56 @@
 <div class="container">
   <h1 class="title">🎉 {{ title }} 🎉</h1>
-  <p>Gira la ruleta y descubre el desafío para Migue</p>
-  
-  <div class="roulette" [style.transform]="getRotationStyle()">
-    <div class="segment s1" data-task="Cantar una canción de amorrrr">🎤 Cantar</div>
-    <div class="segment s2" data-task="Bailar salsa por 2 minutos">💃 Bailar</div>
-    <div class="segment s3" data-task="Contar el chiste más malo">😂 Chiste</div>
-    <div class="segment s4" data-task="Hacer 15 flexiones">💪 Flexiones</div>
-    <div class="segment s5" data-task="Imitar un animal por 1 minuto">🐶 Animal</div>
-    <div class="segment s6" data-task="Decir 3 cumplidos a cada amigo">❤️ Cumplidos</div>
-    <div class="segment s7" data-task="Hacer una declaración de amor épica">💕 Amor</div>
-    <div class="segment s8" data-task="Shot de tequila">🥃 Shot</div>
-  </div>
-  
-  <button class="spin-button" (click)="spin()" [disabled]="isSpinning">
-    {{ isSpinning ? 'GIRANDO...' : '¡GIRAR RULETA!' }}
-  </button>
-  
-  <div class="result">
-    <h3 *ngIf="!isSpinning && result !== 'Haz clic para girar la ruleta'">🎯 Desafío para Migue:</h3>
+  <p class="subtitle">Gira la ruleta y descubre el desafío para Migue</p>
+
+  <div class="roulette-container">
+    <div class="pointer"></div>
+    <div class="roulette" id="roulette" [style.transform]="getRotationStyle()">
+      <div class="segment s1" data-task="Cantar una canción de amor">
+        <div class="segment-text">🎤 Cantar</div>
+      </div>
+      <div class="segment s2" data-task="Bailar salsa por 2 minutos">
+        <div class="segment-text">💃 Bailar</div>
+      </div>
+      <div class="segment s3" data-task="Contar el chiste más malo">
+        <div class="segment-text">😂 Chiste</div>
+      </div>
+      <div class="segment s4" data-task="Hacer 15 flexiones">
+        <div class="segment-text">💪 Flexiones</div>
+      </div>
+      <div class="segment s5" data-task="Imitar un animal por 1 minuto">
+        <div class="segment-text">🐶 Animal</div>
+      </div>
+      <div class="segment s6" data-task="Decir 3 cumplidos a cada amigo">
+        <div class="segment-text">❤️ Cumplidos</div>
+      </div>
+      <div class="segment s7" data-task="Hacer una declaración de amor épica">
+        <div class="segment-text">💕 Amor</div>
+      </div>
+      <div class="segment s8" data-task="Shot de tequila">
+        <div class="segment-text">🥃 Shot</div>
+      </div>
+    </div>
+      </div>
+
+    <button class="spin-button" (click)="spinWithSound()" [disabled]="isSpinning" id="spinBtn">
+      {{ isSpinning ? 'GIRANDO...' : '¡GIRAR RULETA!' }}
+    </button>
+
+    <div class="options-list">
+      <h3>🎯 Opciones Disponibles:</h3>
+      <ul>
+        <li><strong>1.</strong> 🎤 Cantar una canción de amor</li>
+        <li><strong>2.</strong> 💃 Bailar salsa por 2 minutos</li>
+        <li><strong>3.</strong> 😂 Contar el chiste más malo</li>
+        <li><strong>4.</strong> 💪 Hacer 15 flexiones</li>
+        <li><strong>5.</strong> 🐶 Imitar un animal por 1 minuto</li>
+        <li><strong>6.</strong> ❤️ Decir 3 cumplidos a cada amigo</li>
+        <li><strong>7.</strong> 💕 Hacer una declaración de amor épica</li>
+        <li><strong>8.</strong> 🥃 Shot de tequila</li>
+      </ul>
+    </div>
+
+  <div class="result" id="result">
     <p>{{ result }}</p>
   </div>
 </div> 
