@@ -94,7 +94,6 @@
             height: 200%;
             top: -100%;
             left: -100%;
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -119,35 +118,35 @@
             font-weight: bold;
         }
 
-        /* Segment positioning and colors */
+        /* Segment positioning and colors - Updated for triangular shapes */
         .segment:nth-child(1) .segment-slice { transform: rotate(0deg); }
         .segment:nth-child(1) .segment-content { 
             background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(2) .segment-slice { transform: rotate(45deg); }
         .segment:nth-child(2) .segment-content { 
             background: linear-gradient(135deg, #4ECDC4, #6ED5CC);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(3) .segment-slice { transform: rotate(90deg); }
         .segment:nth-child(3) .segment-content { 
             background: linear-gradient(135deg, #45B7D1, #67C3D9);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(4) .segment-slice { transform: rotate(135deg); }
         .segment:nth-child(4) .segment-content { 
             background: linear-gradient(135deg, #96CEB4, #A8D6C2);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(5) .segment-slice { transform: rotate(180deg); }
         .segment:nth-child(5) .segment-content { 
             background: linear-gradient(135deg, #FFEAA7, #FFF0B8);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
             color: #333;
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
@@ -155,19 +154,19 @@
         .segment:nth-child(6) .segment-slice { transform: rotate(225deg); }
         .segment:nth-child(6) .segment-content { 
             background: linear-gradient(135deg, #DDA0DD, #E6B3E6);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(7) .segment-slice { transform: rotate(270deg); }
         .segment:nth-child(7) .segment-content { 
             background: linear-gradient(135deg, #98D8C8, #AAE0D2);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
         }
 
         .segment:nth-child(8) .segment-slice { transform: rotate(315deg); }
         .segment:nth-child(8) .segment-content { 
             background: linear-gradient(135deg, #F7DC6F, #F9E79F);
-            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            clip-path: polygon(50% 50%, 100% 0%, 93.3% 25%);
             color: #333;
             text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
@@ -497,6 +496,27 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Animation for selected segment */
+        .segment-selected {
+            animation: segmentPulse 1.5s ease-in-out 3;
+            z-index: 10;
+        }
+
+        @keyframes segmentPulse {
+            0%, 100% { 
+                transform: scale(1);
+            }
+            50% { 
+                transform: scale(1.1);
+            }
+        }
+
+        .segment-selected .segment-content {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8), 
+                        0 0 60px rgba(255, 215, 0, 0.4);
+            border: 3px solid rgba(255, 215, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -662,7 +682,7 @@
             }
         ];
 
-        // Crear sonido de ruleta realista
+        // Crear sonido de ruleta realista mejorado
         function createRealisticSpinSound() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -678,23 +698,32 @@
                 const time = i / sampleRate;
                 const progress = time / duration;
                 
-                // Sonido de fricción de fondo
-                const frictionFreq = 150 * (1 - progress * 0.3);
-                const friction = 0.1 * (1 - progress) * (Math.random() - 0.5);
+                // Sonido de fricción de fondo más natural
+                const frictionFreq = 180 * (1 - progress * 0.4);
+                const friction = 0.12 * (1 - progress) * (Math.random() - 0.5) * Math.sin(time * frictionFreq * Math.PI * 2);
                 
-                // Clicks de la ruleta que se hacen más lentos
-                const clicksPerSecond = 40 * (1 - progress * 0.9);
-                const clickTime = (time * clicksPerSecond) % 1;
-                const clickIntensity = clickTime < 0.1 ? 1 : 0;
-                const click = clickIntensity * 0.3 * (1 - progress * 0.5);
+                // Clicks de la ruleta que se hacen más lentos - simulando los 8 segmentos
+                const segmentClicksPerSecond = 8 * 5 * (1 - progress * 0.95); // 8 segmentos, 5 clicks por segundo por segmento inicialmente
+                const clickTime = (time * segmentClicksPerSecond) % 1;
+                const clickIntensity = clickTime < 0.05 ? 1 : 0;
+                const click = clickIntensity * 0.4 * (1 - progress * 0.3) * Math.exp(-clickTime * 20);
                 
-                // Vibración metálica
-                const metalVib = 0.05 * Math.sin(time * 800) * (1 - progress);
+                // Vibración metálica más intensa al inicio
+                const metalVib = 0.08 * Math.sin(time * 600) * Math.exp(-time * 0.5) * (1 - progress * 0.7);
                 
-                // Ruido de aire
-                const airNoise = 0.02 * (Math.random() - 0.5) * (1 - progress * 0.8);
+                // Ruido de aire y rozamiento
+                const airNoise = 0.03 * (Math.random() - 0.5) * (1 - progress * 0.9);
                 
-                data[i] = friction + click + metalVib + airNoise;
+                // Resonancia de la estructura metálica
+                const resonance = 0.04 * Math.sin(time * 120 * Math.PI * 2) * Math.exp(-time * 1.5) * (1 - progress);
+                
+                // Sonido de desaceleración final
+                const finalDecel = progress > 0.8 ? 0.1 * Math.sin(time * 50 * Math.PI * 2) * (progress - 0.8) * 5 : 0;
+                
+                data[i] = friction + click + metalVib + airNoise + resonance + finalDecel;
+                
+                // Aplicar un filtro de volumen suave
+                data[i] *= Math.exp(-time * 0.2);
             }
 
             return buffer;
@@ -817,6 +846,15 @@
             const challenge = challenges[segmentIndex];
             const resultDiv = document.getElementById('result');
 
+            // Animar el segmento seleccionado
+            const segments = document.querySelectorAll('.segment');
+            segments.forEach((segment, index) => {
+                segment.classList.remove('segment-selected');
+                if (index === segmentIndex) {
+                    segment.classList.add('segment-selected');
+                }
+            });
+
             // Animación de resultado
             resultDiv.className = 'result highlight';
             resultDiv.innerHTML = `
@@ -833,6 +871,11 @@
             setTimeout(() => {
                 resultDiv.classList.remove('highlight');
             }, 3000);
+
+            // Quitar animación del segmento después de 4.5 segundos (3 pulsos de 1.5s)
+            setTimeout(() => {
+                segments[segmentIndex].classList.remove('segment-selected');
+            }, 4500);
         }
 
         function showFullscreen(challenge) {
