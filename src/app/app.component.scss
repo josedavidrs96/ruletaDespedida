@@ -86,25 +86,61 @@ body {
   pointer-events: none;
 }
 
-.segment-text {
-  position: absolute;
-  top: 25%;
-  left: 60%;
-  width: 30%;
-  text-align: center;
-  line-height: 1.1;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(255,255,255,0.3);
-  font-size: clamp(8px, 2vw, 12px);
-  padding: 4px 2px;
-  word-wrap: break-word;
-  hyphens: auto;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  background: rgba(0,0,0,0.3);
-  border-radius: 6px;
-  backdrop-filter: blur(2px);
-  transform-origin: 50% 50%;
-}
+    .segment-text {
+      position: absolute;
+      top: 25%;
+      left: 60%;
+      width: 30%;
+      text-align: center;
+      line-height: 1.1;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(255,255,255,0.3);
+      font-size: clamp(10px, 3vw, 16px);
+      padding: 4px 2px;
+      word-wrap: break-word;
+      hyphens: auto;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      backdrop-filter: blur(2px);
+      transform-origin: 50% 50%;
+    }
+
+    .center-spin-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+      color: white;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      font-size: clamp(12px, 2.5vw, 16px);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      font-family: 'Poppins', Arial, sans-serif;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .center-spin-button:hover:not(:disabled) {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .center-spin-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: translate(-50%, -50%) scale(0.95);
+    }
 
     .options-collapsible {
       margin: 20px auto;
@@ -209,30 +245,7 @@ body {
 .s7 .segment-text { transform: rotate(-270deg); }
 .s8 .segment-text { transform: rotate(-315deg); }
 
-.spin-button {
-  background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
-  color: white;
-  border: none;
-  padding: clamp(12px, 3vw, 18px) clamp(25px, 6vw, 35px);
-  font-size: clamp(14px, 3.5vw, 18px);
-  border-radius: 25px;
-  cursor: pointer;
-  margin: 20px 0;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  font-family: 'Poppins', Arial, sans-serif;
-}
 
-.spin-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
-}
-
-.spin-button:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
 
 .result {
   margin-top: 30px;
@@ -266,27 +279,47 @@ body {
   100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .segment-text {
-    font-size: 7px;
-  }
-}
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .segment-text {
+        font-size: clamp(9px, 2.5vw, 12px);
+      }
+      .center-spin-button {
+        width: 70px;
+        height: 70px;
+        font-size: clamp(10px, 2.2vw, 14px);
+      }
+    }
 
-@media (max-width: 480px) {
-  .segment-text {
-    font-size: 6px;
-  }
-}
+    @media (max-width: 480px) {
+      .segment-text {
+        font-size: clamp(8px, 2.2vw, 10px);
+      }
+      .center-spin-button {
+        width: 60px;
+        height: 60px;
+        font-size: clamp(9px, 2vw, 12px);
+      }
+    }
 
-@media (max-width: 360px) {
-  .segment-text {
-    font-size: 5px;
-  }
-}
+    @media (max-width: 360px) {
+      .segment-text {
+        font-size: clamp(7px, 2vw, 9px);
+      }
+      .center-spin-button {
+        width: 55px;
+        height: 55px;
+        font-size: clamp(8px, 1.8vw, 10px);
+      }
+    }
 
-@media (max-width: 320px) {
-  .segment-text {
-    font-size: 4px;
-  }
-} 
+    @media (max-width: 320px) {
+      .segment-text {
+        font-size: clamp(6px, 1.8vw, 8px);
+      }
+      .center-spin-button {
+        width: 50px;
+        height: 50px;
+        font-size: clamp(7px, 1.6vw, 9px);
+      }
+    } 

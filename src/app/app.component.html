@@ -1,6 +1,6 @@
 <div class="container">
-  <h1 class="title">🎉 {{ title }} 🎉</h1>
-  <p class="subtitle">Gira la ruleta y descubre el desafío para Migue</p>
+  <h1 class="title">🎉{{ title }}🎉</h1>
+  <p class="subtitle">¡Gira la ruleta y descubre el desafío!</p>
 
   <div class="roulette-container">
     <div class="pointer"></div>
@@ -29,12 +29,18 @@
       <div class="segment s8" data-task="Shot de tequila">
         <div class="segment-text">🥃 Shot</div>
       </div>
+      
+      <!-- Botón central circular -->
+      <button class="center-spin-button" (click)="spinWithSound()" [disabled]="isSpinning">
+        {{ isSpinning ? 'GIRANDO...' : 'GIRAR' }}
+      </button>
     </div>
-      </div>
+  </div>
 
-    <button class="spin-button" (click)="spinWithSound()" [disabled]="isSpinning" id="spinBtn">
-      {{ isSpinning ? 'GIRANDO...' : '¡GIRAR RULETA!' }}
-    </button>
+  <!-- Resultado justo después del botón -->
+  <div class="result" id="result">
+    <p>{{ result }}</p>
+  </div>
 
     <div class="options-collapsible">
       <button class="collapsible-btn" (click)="toggleOptions()">
@@ -54,8 +60,4 @@
         </ul>
       </div>
     </div>
-
-  <div class="result" id="result">
-    <p>{{ result }}</p>
-  </div>
 </div> 
