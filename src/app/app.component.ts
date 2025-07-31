@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Despedida de Soltero - Migue';
+  title = 'Despedida Migue';
   isSpinning = false;
   currentRotation = 0;
   result = 'Haz clic para girar la ruleta';
