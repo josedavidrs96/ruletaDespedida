@@ -104,7 +104,7 @@ export class AppComponent {
     ];
     const normalizedRotation = (360 - (this.currentRotation % 360)) % 360;
     const segmentIndex = Math.floor(normalizedRotation / 45) % 8;
-    this.result = tasks[segmentIndex];
+    this.result = `🎯 Desafío: ${tasks[segmentIndex]}`;
   }
 
   getRotationStyle() {

@@ -39,7 +39,9 @@
 
   <!-- Resultado justo después del botón -->
   <div class="result" id="result">
-    <p>{{ result }}</p>
+    <p *ngIf="!isSpinning && result !== 'Haz clic para girar la ruleta'">{{ result }}</p>
+    <p *ngIf="isSpinning">🎲 Girando...</p>
+    <p *ngIf="!isSpinning && result === 'Haz clic para girar la ruleta'">{{ result }}</p>
   </div>
 
     <div class="options-collapsible">
