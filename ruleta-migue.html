@@ -63,6 +63,7 @@
             background: #333;
             transition: transform 10s cubic-bezier(0.25, 0.1, 0.25, 1);
             transform-origin: center center;
+            overflow: hidden;
         }
 
         .wheel.spinning {
@@ -71,68 +72,105 @@
 
         .segment {
             position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .segment-slice {
+            position: absolute;
             width: 50%;
             height: 50%;
             top: 50%;
             left: 50%;
             transform-origin: 0 0;
             overflow: hidden;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 15%;
+            cursor: pointer;
         }
 
-        .segment-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            clip-path: polygon(0 0, 100% 0, 0 100%);
+        .segment-content {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -100%;
+            left: -100%;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             font-weight: bold;
-            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            font-size: clamp(0.8rem, 1.8vw, 1rem);
             text-align: center;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            line-height: 1.2;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .segment-emoji {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            margin-bottom: 5px;
         }
 
         .segment-text {
-            position: absolute;
-            top: 30%;
-            left: 35%;
-            transform: rotate(-22.5deg);
-            width: 60px;
-            text-align: center;
-            line-height: 1.1;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            font-weight: bold;
         }
 
-        /* Segment colors */
-        .segment:nth-child(1) .segment-inner { background: linear-gradient(45deg, #FF6B6B, #FF8E8E); transform: rotate(0deg); }
-        .segment:nth-child(2) .segment-inner { background: linear-gradient(45deg, #4ECDC4, #6ED5CC); transform: rotate(45deg); }
-        .segment:nth-child(3) .segment-inner { background: linear-gradient(45deg, #45B7D1, #67C3D9); transform: rotate(90deg); }
-        .segment:nth-child(4) .segment-inner { background: linear-gradient(45deg, #96CEB4, #A8D6C2); transform: rotate(135deg); }
-        .segment:nth-child(5) .segment-inner { background: linear-gradient(45deg, #FFEAA7, #FFF0B8); transform: rotate(180deg); }
-        .segment:nth-child(6) .segment-inner { background: linear-gradient(45deg, #DDA0DD, #E6B3E6); transform: rotate(225deg); }
-        .segment:nth-child(7) .segment-inner { background: linear-gradient(45deg, #98D8C8, #AAE0D2); transform: rotate(270deg); }
-        .segment:nth-child(8) .segment-inner { background: linear-gradient(45deg, #F7DC6F, #F9E79F); transform: rotate(315deg); }
+        /* Segment positioning and colors */
+        .segment:nth-child(1) .segment-slice { transform: rotate(0deg); }
+        .segment:nth-child(1) .segment-content { 
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
 
-        /* Adjust text color for light backgrounds */
-        .segment:nth-child(5) .segment-text,
-        .segment:nth-child(8) .segment-text {
+        .segment:nth-child(2) .segment-slice { transform: rotate(45deg); }
+        .segment:nth-child(2) .segment-content { 
+            background: linear-gradient(135deg, #4ECDC4, #6ED5CC);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
+
+        .segment:nth-child(3) .segment-slice { transform: rotate(90deg); }
+        .segment:nth-child(3) .segment-content { 
+            background: linear-gradient(135deg, #45B7D1, #67C3D9);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
+
+        .segment:nth-child(4) .segment-slice { transform: rotate(135deg); }
+        .segment:nth-child(4) .segment-content { 
+            background: linear-gradient(135deg, #96CEB4, #A8D6C2);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
+
+        .segment:nth-child(5) .segment-slice { transform: rotate(180deg); }
+        .segment:nth-child(5) .segment-content { 
+            background: linear-gradient(135deg, #FFEAA7, #FFF0B8);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
             color: #333;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
         }
 
-        .segment:nth-child(1) { transform: rotate(0deg); }
-        .segment:nth-child(2) { transform: rotate(45deg); }
-        .segment:nth-child(3) { transform: rotate(90deg); }
-        .segment:nth-child(4) { transform: rotate(135deg); }
-        .segment:nth-child(5) { transform: rotate(180deg); }
-        .segment:nth-child(6) { transform: rotate(225deg); }
-        .segment:nth-child(7) { transform: rotate(270deg); }
-        .segment:nth-child(8) { transform: rotate(315deg); }
+        .segment:nth-child(6) .segment-slice { transform: rotate(225deg); }
+        .segment:nth-child(6) .segment-content { 
+            background: linear-gradient(135deg, #DDA0DD, #E6B3E6);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
+
+        .segment:nth-child(7) .segment-slice { transform: rotate(270deg); }
+        .segment:nth-child(7) .segment-content { 
+            background: linear-gradient(135deg, #98D8C8, #AAE0D2);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+        }
+
+        .segment:nth-child(8) .segment-slice { transform: rotate(315deg); }
+        .segment:nth-child(8) .segment-content { 
+            background: linear-gradient(135deg, #F7DC6F, #F9E79F);
+            clip-path: polygon(50% 50%, 100% 0%, 100% 29.3%);
+            color: #333;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.8);
+        }
 
         .pointer {
             position: absolute;
@@ -274,6 +312,128 @@
             50% { opacity: 0.6; }
         }
 
+        /* Fullscreen modal styles */
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7));
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .fullscreen-modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fullscreen-content {
+            background: linear-gradient(135deg, var(--segment-color1), var(--segment-color2));
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow-y: auto;
+        }
+
+        @keyframes scaleIn {
+            from { 
+                transform: scale(0.3) rotate(-10deg);
+                opacity: 0;
+            }
+            to { 
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .fullscreen-emoji {
+            font-size: clamp(4rem, 12vw, 8rem);
+            margin-bottom: 30px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .fullscreen-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            color: white;
+        }
+
+        .fullscreen-description {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            line-height: 1.4;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 40px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .new-spin-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        .new-spin-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
         /* Mobile optimizations */
         @media (max-width: 768px) {
             .container {
@@ -284,26 +444,42 @@
                 margin: 10px auto;
             }
             
-            .segment-text {
-                font-size: 0.6rem;
-                width: 50px;
-                top: 25%;
-                left: 30%;
+            .segment-content {
+                font-size: 0.7rem;
+                padding: 15px;
+            }
+
+            .segment-emoji {
+                font-size: 1rem;
+            }
+
+            .fullscreen-content {
+                padding: 40px 20px;
             }
         }
 
         @media (max-width: 480px) {
-            .segment-text {
-                font-size: 0.5rem;
-                width: 40px;
-                top: 20%;
-                left: 25%;
+            .segment-content {
+                font-size: 0.6rem;
+                padding: 10px;
+            }
+
+            .segment-emoji {
+                font-size: 0.9rem;
             }
             
             .center-circle {
                 width: 40px;
                 height: 40px;
                 font-size: 1rem;
+            }
+
+            .close-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                top: 15px;
+                right: 15px;
             }
         }
 
@@ -337,43 +513,67 @@
             
             <div class="wheel" id="wheel">
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">🎤<br>Cantar<br>Amor</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">🎤</div>
+                            <div class="segment-text">Cantar<br>Amor</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">💃<br>Bailar<br>Salsa</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">💃</div>
+                            <div class="segment-text">Bailar<br>Salsa</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">😂<br>Chiste<br>Malo</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">😂</div>
+                            <div class="segment-text">Chiste<br>Malo</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">💪<br>15<br>Flexiones</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">💪</div>
+                            <div class="segment-text">15<br>Flexiones</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">🐶<br>Imitar<br>Animal</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">🐶</div>
+                            <div class="segment-text">Imitar<br>Animal</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">❤️<br>3<br>Cumplidos</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">❤️</div>
+                            <div class="segment-text">3<br>Cumplidos</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">💕<br>Declaración<br>Épica</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">💕</div>
+                            <div class="segment-text">Declaración<br>Épica</div>
+                        </div>
                     </div>
                 </div>
                 <div class="segment">
-                    <div class="segment-inner">
-                        <div class="segment-text">🥃<br>Shot<br>Tequila</div>
+                    <div class="segment-slice">
+                        <div class="segment-content">
+                            <div class="segment-emoji">🥃</div>
+                            <div class="segment-text">Shot<br>Tequila</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -392,75 +592,129 @@
         </div>
     </div>
 
+    <!-- Fullscreen Modal -->
+    <div class="fullscreen-modal" id="fullscreenModal">
+        <div class="fullscreen-content" id="fullscreenContent">
+            <button class="close-button" onclick="closeFullscreen()">✕</button>
+            <div class="fullscreen-emoji" id="fullscreenEmoji"></div>
+            <div class="fullscreen-title" id="fullscreenTitle"></div>
+            <div class="fullscreen-description" id="fullscreenDescription"></div>
+            <button class="new-spin-button" onclick="closeFullscreen()">¡GIRAR DE NUEVO!</button>
+        </div>
+    </div>
+
     <script>
         let isSpinning = false;
         let currentRotation = 0;
         let audioContext = null;
         let spinningSound = null;
+        let clickSound = null;
 
         // Desafíos para Migue
         const challenges = [
             {
                 title: "🎤 Cantar una canción de amor",
-                description: "Migue debe cantar una canción de amor completa con todo el sentimiento. ¡Con mímica incluida!"
+                description: "Migue debe cantar una canción de amor completa con todo el sentimiento. ¡Con mímica incluida!",
+                emoji: "🎤",
+                colors: ["#FF6B6B", "#FF8E8E"]
             },
             {
                 title: "💃 Bailar salsa por 2 minutos",
-                description: "¡Tiempo de mover el esqueleto! Migue debe bailar salsa durante 2 minutos completos."
+                description: "¡Tiempo de mover el esqueleto! Migue debe bailar salsa durante 2 minutos completos.",
+                emoji: "💃",
+                colors: ["#4ECDC4", "#6ED5CC"]
             },
             {
                 title: "😂 Contar el chiste más malo",
-                description: "Migue debe contar el chiste más malo que conozca. ¡Tan malo que sea bueno!"
+                description: "Migue debe contar el chiste más malo que conozca. ¡Tan malo que sea bueno!",
+                emoji: "😂",
+                colors: ["#45B7D1", "#67C3D9"]
             },
             {
                 title: "💪 Hacer 15 flexiones",
-                description: "¡A entrenar! Migue debe hacer 15 flexiones bien hechas. ¡Sin trampas!"
+                description: "¡A entrenar! Migue debe hacer 15 flexiones bien hechas. ¡Sin trampas!",
+                emoji: "💪",
+                colors: ["#96CEB4", "#A8D6C2"]
             },
             {
                 title: "🐶 Imitar un animal por 1 minuto",
-                description: "Migue debe elegir un animal e imitarlo por 1 minuto completo. ¡Con sonidos incluidos!"
+                description: "Migue debe elegir un animal e imitarlo por 1 minuto completo. ¡Con sonidos incluidos!",
+                emoji: "🐶",
+                colors: ["#FFEAA7", "#FFF0B8"]
             },
             {
                 title: "❤️ Decir 3 cumplidos a cada amigo",
-                description: "Momento emotivo: Migue debe dar 3 cumplidos sinceros a cada amigo presente."
+                description: "Momento emotivo: Migue debe dar 3 cumplidos sinceros a cada amigo presente.",
+                emoji: "❤️",
+                colors: ["#DDA0DD", "#E6B3E6"]
             },
             {
                 title: "💕 Hacer una declaración de amor épica",
-                description: "¡El momento más romántico! Migue debe hacer una declaración de amor épica y dramática."
+                description: "¡El momento más romántico! Migue debe hacer una declaración de amor épica y dramática.",
+                emoji: "💕",
+                colors: ["#98D8C8", "#AAE0D2"]
             },
             {
                 title: "🥃 Shot de tequila",
-                description: "¡Salud! Migue debe tomarse un shot de tequila de una sola vez. ¡Por su despedida!"
+                description: "¡Salud! Migue debe tomarse un shot de tequila de una sola vez. ¡Por su despedida!",
+                emoji: "🥃",
+                colors: ["#F7DC6F", "#F9E79F"]
             }
         ];
 
-        // Crear sonido de ruleta usando Web Audio API
-        function createSpinSound() {
+        // Crear sonido de ruleta realista
+        function createRealisticSpinSound() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
 
-            const duration = 10; // 10 segundos
+            const duration = 8;
             const sampleRate = audioContext.sampleRate;
             const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
             const data = buffer.getChannelData(0);
 
-            // Generar sonido de ruleta que se desacelera
+            // Crear sonido más realista de ruleta con clicks y fricción
             for (let i = 0; i < data.length; i++) {
                 const time = i / sampleRate;
                 const progress = time / duration;
                 
-                // Frecuencia que disminuye con el tiempo
-                const frequency = 200 * (1 - progress * 0.8) + Math.sin(time * 50) * 20;
+                // Sonido de fricción de fondo
+                const frictionFreq = 150 * (1 - progress * 0.3);
+                const friction = 0.1 * (1 - progress) * (Math.random() - 0.5);
                 
-                // Amplitud que disminuye gradualmente
-                const amplitude = 0.3 * (1 - progress * 0.7) * Math.exp(-time * 0.3);
+                // Clicks de la ruleta que se hacen más lentos
+                const clicksPerSecond = 40 * (1 - progress * 0.9);
+                const clickTime = (time * clicksPerSecond) % 1;
+                const clickIntensity = clickTime < 0.1 ? 1 : 0;
+                const click = clickIntensity * 0.3 * (1 - progress * 0.5);
                 
-                // Sonido de click que se hace más lento
-                const clickRate = 20 * (1 - progress * 0.9);
-                const click = Math.sin(time * clickRate * Math.PI * 2) > 0 ? 1 : -1;
+                // Vibración metálica
+                const metalVib = 0.05 * Math.sin(time * 800) * (1 - progress);
                 
-                data[i] = amplitude * click * Math.sin(frequency * time * Math.PI * 2);
+                // Ruido de aire
+                const airNoise = 0.02 * (Math.random() - 0.5) * (1 - progress * 0.8);
+                
+                data[i] = friction + click + metalVib + airNoise;
+            }
+
+            return buffer;
+        }
+
+        // Crear sonido de click final
+        function createClickSound() {
+            if (!audioContext) return null;
+
+            const duration = 0.2;
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            for (let i = 0; i < data.length; i++) {
+                const time = i / sampleRate;
+                const envelope = Math.exp(-time * 15);
+                const click = Math.sin(time * 200 * Math.PI * 2) * envelope * 0.5;
+                const snap = Math.sin(time * 800 * Math.PI * 2) * envelope * 0.3;
+                data[i] = click + snap;
             }
 
             return buffer;
@@ -475,17 +729,38 @@
                 }
 
                 spinningSound = audioContext.createBufferSource();
-                spinningSound.buffer = createSpinSound();
+                spinningSound.buffer = createRealisticSpinSound();
                 
                 const gainNode = audioContext.createGain();
-                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 10);
+                gainNode.gain.setValueAtTime(0.6, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 8);
                 
                 spinningSound.connect(gainNode);
                 gainNode.connect(audioContext.destination);
                 spinningSound.start();
             } catch (error) {
                 console.log('Audio not supported or blocked');
+            }
+        }
+
+        function playClickSound() {
+            if (!audioContext) return;
+
+            try {
+                const clickBuffer = createClickSound();
+                if (!clickBuffer) return;
+
+                clickSound = audioContext.createBufferSource();
+                clickSound.buffer = clickBuffer;
+                
+                const gainNode = audioContext.createGain();
+                gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+                
+                clickSound.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                clickSound.start();
+            } catch (error) {
+                console.log('Click sound not supported');
             }
         }
 
@@ -505,12 +780,12 @@
             result.className = 'result';
             result.innerHTML = '<div class="spinning-text">🌪️ Girando la ruleta del destino... 🌪️</div>';
 
-            // Reproducir sonido
+            // Reproducir sonido realista
             playSpinSound();
 
             // Calcular rotación (más vueltas para efecto dramático)
-            const minSpins = 8; // Mínimo 8 vueltas completas
-            const maxSpins = 12; // Máximo 12 vueltas completas
+            const minSpins = 6;
+            const maxSpins = 10;
             const spins = Math.random() * (maxSpins - minSpins) + minSpins;
             const finalAngle = Math.random() * 360;
             const totalRotation = spins * 360 + finalAngle;
@@ -521,20 +796,21 @@
             wheel.classList.add('spinning');
             wheel.style.transform = `rotate(${currentRotation}deg)`;
 
-            // Mostrar resultado después de 10 segundos
+            // Mostrar resultado después de 8 segundos
             setTimeout(() => {
+                playClickSound(); // Sonido de parada
                 showResult();
                 isSpinning = false;
                 button.disabled = false;
                 button.innerHTML = '¡GIRAR DE NUEVO!';
                 wheel.classList.remove('spinning');
-            }, 10000);
+            }, 8000);
         }
 
         function showResult() {
             // Calcular qué segmento fue seleccionado
             const normalizedRotation = (360 - (currentRotation % 360)) % 360;
-            const segmentAngle = 360 / 8; // 45 grados por segmento
+            const segmentAngle = 360 / 8;
             const adjustedRotation = (normalizedRotation + segmentAngle / 2) % 360;
             const segmentIndex = Math.floor(adjustedRotation / segmentAngle);
 
@@ -548,11 +824,49 @@
                 <div class="result-text">${challenge.description}</div>
             `;
 
+            // Mostrar fullscreen después de un momento
+            setTimeout(() => {
+                showFullscreen(challenge);
+            }, 1500);
+
             // Quitar highlight después de 3 segundos
             setTimeout(() => {
                 resultDiv.classList.remove('highlight');
             }, 3000);
         }
+
+        function showFullscreen(challenge) {
+            const modal = document.getElementById('fullscreenModal');
+            const content = document.getElementById('fullscreenContent');
+            const emoji = document.getElementById('fullscreenEmoji');
+            const title = document.getElementById('fullscreenTitle');
+            const description = document.getElementById('fullscreenDescription');
+
+            // Configurar colores del contenido
+            content.style.setProperty('--segment-color1', challenge.colors[0]);
+            content.style.setProperty('--segment-color2', challenge.colors[1]);
+            content.style.background = `linear-gradient(135deg, ${challenge.colors[0]}, ${challenge.colors[1]})`;
+
+            // Configurar contenido
+            emoji.textContent = challenge.emoji;
+            title.textContent = challenge.title;
+            description.textContent = challenge.description;
+
+            // Mostrar modal
+            modal.classList.add('show');
+        }
+
+        function closeFullscreen() {
+            const modal = document.getElementById('fullscreenModal');
+            modal.classList.remove('show');
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            }
+        });
 
         // Inicializar audio context en la primera interacción
         document.addEventListener('click', function initAudio() {
