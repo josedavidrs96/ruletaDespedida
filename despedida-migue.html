@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Despedida Migue</title>
+    <style>
+        body { background: linear-gradient(45deg, #ff6b6b, #4ecdc4); text-align: center; font-family: Arial; color: white; padding: 50px; }
+        .roulette { width: 300px; height: 300px; border-radius: 50%; margin: 20px auto; position: relative; transition: transform 4s ease-out; }
+        .segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .s1 { background: #FF6B6B; transform: rotate(0deg); }
+        .s2 { background: #4ECDC4; transform: rotate(45deg); }
+        .s3 { background: #45B7D1; transform: rotate(90deg); }
+        .s4 { background: #96CEB4; transform: rotate(135deg); }
+        .s5 { background: #FFEAA7; transform: rotate(180deg); }
+        .s6 { background: #DDA0DD; transform: rotate(225deg); }
+        .s7 { background: #98D8C8; transform: rotate(270deg); }
+        .s8 { background: #F7DC6F; transform: rotate(315deg); }
+        button { padding: 15px 30px; font-size: 18px; background: #333; color: white; border: none; border-radius: 25px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Despedida de Soltero de Migue</h1>
+    <div class="roulette" id="roulette">
+        <div class="segment s1">Cantar</div>
+        <div class="segment s2">Bailar</div>
+        <div class="segment s3">Chiste</div>
+        <div class="segment s4">Flexiones</div>
+        <div class="segment s5">Animal</div>
+        <div class="segment s6">Cumplidos</div>
+        <div class="segment s7">Amor</div>
+        <div class="segment s8">Shot</div>
+    </div>
+    <button onclick="girar()">GIRAR RULETA</button>
+    <div id="resultado" style="margin-top: 20px; font-size: 24px;"></div>
+    <script>
+        let rotacion = 0;
+        function girar() {
+            const roulette = document.getElementById('roulette');
+            const giros = Math.random() * 4 + 4;
+            rotacion += giros * 360;
+            roulette.style.transform = 'rotate(' + rotacion + 'deg)';
+            setTimeout(() => {
+                const tareas = ['Cantar una cancion', 'Bailar salsa', 'Contar un chiste', 'Hacer flexiones', 'Imitar animal', 'Dar cumplidos', 'Declaracion de amor', 'Tomar shot'];
+                const indice = Math.floor(((360 - (rotacion % 360)) % 360) / 45) % 8;
+                document.getElementById('resultado').innerHTML = '<h2>Desafio para Migue:</h2><p>' + tareas[indice] + '</p>';
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
