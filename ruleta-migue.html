@@ -3,141 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Despedida de Soltero - Migue</title>
+    <title>🎉 Ruleta de Despedida - Migue 🎉</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        * {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
+            overflow: hidden;
         }
+
         .container {
             text-align: center;
-            max-width: 600px;
-        }
-        .title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .roulette {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            margin: 30px auto;
+            max-width: 90vw;
+            max-height: 90vh;
             position: relative;
-            transition: transform 4s ease-out;
         }
+
+        .title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.6); }
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .wheel-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px auto;
+        }
+
+        .wheel {
+            width: clamp(280px, 50vw, 400px);
+            height: clamp(280px, 50vw, 400px);
+            border-radius: 50%;
+            position: relative;
+            border: 8px solid #fff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.1);
+            background: #333;
+            transition: transform 10s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transform-origin: center center;
+        }
+
+        .wheel.spinning {
+            transition: transform 10s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
         .segment {
             position: absolute;
             width: 50%;
             height: 50%;
-            transform-origin: 100% 100%;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15%;
+        }
+
+        .segment-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-weight: bold;
-            font-size: 12px;
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
         }
-        .s1 { background: #FF6B6B; transform: rotate(0deg); }
-        .s2 { background: #4ECDC4; transform: rotate(45deg); }
-        .s3 { background: #45B7D1; transform: rotate(90deg); }
-        .s4 { background: #96CEB4; transform: rotate(135deg); }
-        .s5 { background: #FFEAA7; color: #333; transform: rotate(180deg); }
-        .s6 { background: #DDA0DD; transform: rotate(225deg); }
-        .s7 { background: #98D8C8; transform: rotate(270deg); }
-        .s8 { background: #F7DC6F; color: #333; transform: rotate(315deg); }
+
+        .segment-text {
+            position: absolute;
+            top: 30%;
+            left: 35%;
+            transform: rotate(-22.5deg);
+            width: 60px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        /* Segment colors */
+        .segment:nth-child(1) .segment-inner { background: linear-gradient(45deg, #FF6B6B, #FF8E8E); transform: rotate(0deg); }
+        .segment:nth-child(2) .segment-inner { background: linear-gradient(45deg, #4ECDC4, #6ED5CC); transform: rotate(45deg); }
+        .segment:nth-child(3) .segment-inner { background: linear-gradient(45deg, #45B7D1, #67C3D9); transform: rotate(90deg); }
+        .segment:nth-child(4) .segment-inner { background: linear-gradient(45deg, #96CEB4, #A8D6C2); transform: rotate(135deg); }
+        .segment:nth-child(5) .segment-inner { background: linear-gradient(45deg, #FFEAA7, #FFF0B8); transform: rotate(180deg); }
+        .segment:nth-child(6) .segment-inner { background: linear-gradient(45deg, #DDA0DD, #E6B3E6); transform: rotate(225deg); }
+        .segment:nth-child(7) .segment-inner { background: linear-gradient(45deg, #98D8C8, #AAE0D2); transform: rotate(270deg); }
+        .segment:nth-child(8) .segment-inner { background: linear-gradient(45deg, #F7DC6F, #F9E79F); transform: rotate(315deg); }
+
+        /* Adjust text color for light backgrounds */
+        .segment:nth-child(5) .segment-text,
+        .segment:nth-child(8) .segment-text {
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+        }
+
+        .segment:nth-child(1) { transform: rotate(0deg); }
+        .segment:nth-child(2) { transform: rotate(45deg); }
+        .segment:nth-child(3) { transform: rotate(90deg); }
+        .segment:nth-child(4) { transform: rotate(135deg); }
+        .segment:nth-child(5) { transform: rotate(180deg); }
+        .segment:nth-child(6) { transform: rotate(225deg); }
+        .segment:nth-child(7) { transform: rotate(270deg); }
+        .segment:nth-child(8) { transform: rotate(315deg); }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .pointer-arrow {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #FFD700;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+            position: relative;
+        }
+
+        .pointer-circle {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .center-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 2px 5px rgba(255,255,255,0.3);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
         .spin-button {
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 25px;
+            padding: clamp(12px, 3vw, 18px) clamp(20px, 5vw, 35px);
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            border-radius: 50px;
             cursor: pointer;
             margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
         }
+
+        .spin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+
+        .spin-button:active {
+            transform: translateY(0);
+        }
+
+        .spin-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spin-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .spin-button:hover::before {
+            left: 100%;
+        }
+
         .result {
             margin-top: 30px;
             padding: 20px;
             background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            font-size: 18px;
-            min-height: 50px;
+            border-radius: 20px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            min-height: 80px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .result.highlight {
+            background: rgba(255,215,0,0.2);
+            border-color: #FFD700;
+            transform: scale(1.02);
+        }
+
+        .result-title {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+
+        .result-text {
+            line-height: 1.4;
+        }
+
+        .spinning-text {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .wheel {
+                margin: 10px auto;
+            }
+            
+            .segment-text {
+                font-size: 0.6rem;
+                width: 50px;
+                top: 25%;
+                left: 30%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .segment-text {
+                font-size: 0.5rem;
+                width: 40px;
+                top: 20%;
+                left: 25%;
+            }
+            
+            .center-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading animation for audio */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="title">🎉 Despedida de Migue 🎉</h1>
-        <p>Gira la ruleta y descubre el desafío para Migue</p>
+        <p class="subtitle">¡Gira la ruleta y descubre el desafío épico para Migue!</p>
         
-        <div class="roulette" id="roulette">
-            <div class="segment s1" data-task="Cantar una canción de amor">🎤 Cantar</div>
-            <div class="segment s2" data-task="Bailar salsa por 2 minutos">💃 Bailar</div>
-            <div class="segment s3" data-task="Contar el chiste más malo">😂 Chiste</div>
-            <div class="segment s4" data-task="Hacer 15 flexiones">💪 Flexiones</div>
-            <div class="segment s5" data-task="Imitar un animal por 1 minuto">🐶 Animal</div>
-            <div class="segment s6" data-task="Decir 3 cumplidos a cada amigo">❤️ Cumplidos</div>
-            <div class="segment s7" data-task="Hacer una declaración de amor épica">💕 Amor</div>
-            <div class="segment s8" data-task="Shot de tequila">🥃 Shot</div>
+        <div class="wheel-container">
+            <div class="pointer">
+                <div class="pointer-arrow">
+                    <div class="pointer-circle"></div>
+                </div>
+            </div>
+            
+            <div class="wheel" id="wheel">
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">🎤<br>Cantar<br>Amor</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">💃<br>Bailar<br>Salsa</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">😂<br>Chiste<br>Malo</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">💪<br>15<br>Flexiones</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">🐶<br>Imitar<br>Animal</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">❤️<br>3<br>Cumplidos</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">💕<br>Declaración<br>Épica</div>
+                    </div>
+                </div>
+                <div class="segment">
+                    <div class="segment-inner">
+                        <div class="segment-text">🥃<br>Shot<br>Tequila</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="center-circle">🎯</div>
         </div>
         
-        <button class="spin-button" onclick="spin()">¡GIRAR RULETA!</button>
+        <button class="spin-button" id="spinButton" onclick="spinWheel()">
+            ¡GIRAR RULETA!
+        </button>
         
         <div class="result" id="result">
-            Haz clic para girar la ruleta
+            <div class="result-text">
+                Haz clic en el botón para girar la ruleta y descubrir el desafío para Migue
+            </div>
         </div>
     </div>
 
     <script>
         let isSpinning = false;
         let currentRotation = 0;
+        let audioContext = null;
+        let spinningSound = null;
 
-        function spin() {
+        // Desafíos para Migue
+        const challenges = [
+            {
+                title: "🎤 Cantar una canción de amor",
+                description: "Migue debe cantar una canción de amor completa con todo el sentimiento. ¡Con mímica incluida!"
+            },
+            {
+                title: "💃 Bailar salsa por 2 minutos",
+                description: "¡Tiempo de mover el esqueleto! Migue debe bailar salsa durante 2 minutos completos."
+            },
+            {
+                title: "😂 Contar el chiste más malo",
+                description: "Migue debe contar el chiste más malo que conozca. ¡Tan malo que sea bueno!"
+            },
+            {
+                title: "💪 Hacer 15 flexiones",
+                description: "¡A entrenar! Migue debe hacer 15 flexiones bien hechas. ¡Sin trampas!"
+            },
+            {
+                title: "🐶 Imitar un animal por 1 minuto",
+                description: "Migue debe elegir un animal e imitarlo por 1 minuto completo. ¡Con sonidos incluidos!"
+            },
+            {
+                title: "❤️ Decir 3 cumplidos a cada amigo",
+                description: "Momento emotivo: Migue debe dar 3 cumplidos sinceros a cada amigo presente."
+            },
+            {
+                title: "💕 Hacer una declaración de amor épica",
+                description: "¡El momento más romántico! Migue debe hacer una declaración de amor épica y dramática."
+            },
+            {
+                title: "🥃 Shot de tequila",
+                description: "¡Salud! Migue debe tomarse un shot de tequila de una sola vez. ¡Por su despedida!"
+            }
+        ];
+
+        // Crear sonido de ruleta usando Web Audio API
+        function createSpinSound() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const duration = 10; // 10 segundos
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            // Generar sonido de ruleta que se desacelera
+            for (let i = 0; i < data.length; i++) {
+                const time = i / sampleRate;
+                const progress = time / duration;
+                
+                // Frecuencia que disminuye con el tiempo
+                const frequency = 200 * (1 - progress * 0.8) + Math.sin(time * 50) * 20;
+                
+                // Amplitud que disminuye gradualmente
+                const amplitude = 0.3 * (1 - progress * 0.7) * Math.exp(-time * 0.3);
+                
+                // Sonido de click que se hace más lento
+                const clickRate = 20 * (1 - progress * 0.9);
+                const click = Math.sin(time * clickRate * Math.PI * 2) > 0 ? 1 : -1;
+                
+                data[i] = amplitude * click * Math.sin(frequency * time * Math.PI * 2);
+            }
+
+            return buffer;
+        }
+
+        function playSpinSound() {
+            if (!audioContext) return;
+
+            try {
+                if (spinningSound) {
+                    spinningSound.stop();
+                }
+
+                spinningSound = audioContext.createBufferSource();
+                spinningSound.buffer = createSpinSound();
+                
+                const gainNode = audioContext.createGain();
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 10);
+                
+                spinningSound.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                spinningSound.start();
+            } catch (error) {
+                console.log('Audio not supported or blocked');
+            }
+        }
+
+        function spinWheel() {
             if (isSpinning) return;
-            
+
             isSpinning = true;
-            const roulette = document.getElementById('roulette');
+            const wheel = document.getElementById('wheel');
             const result = document.getElementById('result');
-            
-            result.textContent = 'Girando...';
-            
-            const spins = Math.random() * 4 + 4;
-            const finalRotation = spins * 360;
-            currentRotation += finalRotation;
-            
-            roulette.style.transform = 'rotate(' + currentRotation + 'deg)';
-            
+            const button = document.getElementById('spinButton');
+
+            // Deshabilitar botón
+            button.disabled = true;
+            button.innerHTML = '<span class="loading"></span> GIRANDO...';
+
+            // Mostrar texto de giro
+            result.className = 'result';
+            result.innerHTML = '<div class="spinning-text">🌪️ Girando la ruleta del destino... 🌪️</div>';
+
+            // Reproducir sonido
+            playSpinSound();
+
+            // Calcular rotación (más vueltas para efecto dramático)
+            const minSpins = 8; // Mínimo 8 vueltas completas
+            const maxSpins = 12; // Máximo 12 vueltas completas
+            const spins = Math.random() * (maxSpins - minSpins) + minSpins;
+            const finalAngle = Math.random() * 360;
+            const totalRotation = spins * 360 + finalAngle;
+
+            currentRotation += totalRotation;
+
+            // Añadir clase de giro y aplicar rotación
+            wheel.classList.add('spinning');
+            wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            // Mostrar resultado después de 10 segundos
             setTimeout(() => {
                 showResult();
                 isSpinning = false;
-            }, 4000);
+                button.disabled = false;
+                button.innerHTML = '¡GIRAR DE NUEVO!';
+                wheel.classList.remove('spinning');
+            }, 10000);
         }
 
         function showResult() {
-            const tasks = [
-                'Cantar una canción de amor',
-                'Bailar salsa por 2 minutos',
-                'Contar el chiste más malo',
-                'Hacer 15 flexiones',
-                'Imitar un animal por 1 minuto',
-                'Decir 3 cumplidos a cada amigo',
-                'Hacer una declaración de amor épica',
-                'Shot de tequila'
-            ];
-            
+            // Calcular qué segmento fue seleccionado
             const normalizedRotation = (360 - (currentRotation % 360)) % 360;
-            const segmentIndex = Math.floor(normalizedRotation / 45) % 8;
-            
-            document.getElementById('result').innerHTML = 
-                '<h3>🎯 Desafío para Migue:</h3><p>' + tasks[segmentIndex] + '</p>';
+            const segmentAngle = 360 / 8; // 45 grados por segmento
+            const adjustedRotation = (normalizedRotation + segmentAngle / 2) % 360;
+            const segmentIndex = Math.floor(adjustedRotation / segmentAngle);
+
+            const challenge = challenges[segmentIndex];
+            const resultDiv = document.getElementById('result');
+
+            // Animación de resultado
+            resultDiv.className = 'result highlight';
+            resultDiv.innerHTML = `
+                <div class="result-title">${challenge.title}</div>
+                <div class="result-text">${challenge.description}</div>
+            `;
+
+            // Quitar highlight después de 3 segundos
+            setTimeout(() => {
+                resultDiv.classList.remove('highlight');
+            }, 3000);
         }
+
+        // Inicializar audio context en la primera interacción
+        document.addEventListener('click', function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }, { once: true });
+
+        // Prevenir zoom en mobile
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
