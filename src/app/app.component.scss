@@ -238,18 +238,18 @@ body {
 
 .roulette-wrapper {
   position: relative;
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 450px;
   margin: 0 auto;
 
   @media (max-width: 768px) {
-    width: 320px;
-    height: 320px;
+    width: 350px;
+    height: 350px;
   }
 
   @media (max-width: 480px) {
-    width: 280px;
-    height: 280px;
+    width: 300px;
+    height: 300px;
   }
 }
 
@@ -266,10 +266,10 @@ body {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: #ffffff;
+  background: transparent;
 }
 
-/* Segmentos de la ruleta - Triángulos Isósceles */
+/* Segmentos de la ruleta - Triángulos que ocupan toda la circunferencia */
 .segment {
   position: absolute;
   width: 100%;
@@ -277,9 +277,31 @@ body {
   left: 0;
   top: 0;
   transform-origin: center;
-  clip-path: polygon(50% 50%, 48.5% 5%, 51.5% 5%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  clip-path: polygon(50% 50%, 40% 0%, 60% 0%);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   box-sizing: border-box;
+
+  /* Asegurar que cada segmento tenga exactamente 18 grados (360/20) */
+  &:nth-child(1) { transform: rotate(0deg); }
+  &:nth-child(2) { transform: rotate(18deg); }
+  &:nth-child(3) { transform: rotate(36deg); }
+  &:nth-child(4) { transform: rotate(54deg); }
+  &:nth-child(5) { transform: rotate(72deg); }
+  &:nth-child(6) { transform: rotate(90deg); }
+  &:nth-child(7) { transform: rotate(108deg); }
+  &:nth-child(8) { transform: rotate(126deg); }
+  &:nth-child(9) { transform: rotate(144deg); }
+  &:nth-child(10) { transform: rotate(162deg); }
+  &:nth-child(11) { transform: rotate(180deg); }
+  &:nth-child(12) { transform: rotate(198deg); }
+  &:nth-child(13) { transform: rotate(216deg); }
+  &:nth-child(14) { transform: rotate(234deg); }
+  &:nth-child(15) { transform: rotate(252deg); }
+  &:nth-child(16) { transform: rotate(270deg); }
+  &:nth-child(17) { transform: rotate(288deg); }
+  &:nth-child(18) { transform: rotate(306deg); }
+  &:nth-child(19) { transform: rotate(324deg); }
+  &:nth-child(20) { transform: rotate(342deg); }
 
   &[data-segment="0"], &[data-segment="4"], &[data-segment="8"], &[data-segment="12"], &[data-segment="16"] {
     background: #ff6b6b; /* Rojo */
@@ -300,7 +322,7 @@ body {
 
 .segment-content {
   position: absolute;
-  top: 15%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -309,18 +331,20 @@ body {
 }
 
 .segment-text {
-  font-size: 1.6rem;
+  font-size: 2.2rem;
   text-align: center;
   line-height: 1;
   transform: rotate(-9deg);
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.9));
+  color: white;
+  font-weight: bold;
 
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -357,11 +381,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: linear-gradient(145deg, #ffd700, #ffed4a);
-  border: 4px solid #fff;
+  border: 3px solid #fff;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -374,13 +398,13 @@ body {
   -webkit-backface-visibility: hidden;
 
   @media (max-width: 768px) {
-    width: 65px;
-    height: 65px;
+    width: 55px;
+    height: 55px;
   }
 
   @media (max-width: 480px) {
-    width: 55px;
-    height: 55px;
+    width: 45px;
+    height: 45px;
   }
 
   &:hover:not(:disabled) {
@@ -395,6 +419,22 @@ body {
     opacity: 0.7;
     cursor: not-allowed;
     animation: spin-pulse 1s infinite;
+  }
+}
+
+.spin-text {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.5rem;
   }
 }
 
