@@ -49,9 +49,10 @@
                 <h2 class="section-title">🔥 Para Migue (14 retos)</h2>
                 <ul class="tasks-list">
                     <li *ngFor="let task of getMigueTasksList(); let i = index" 
-                        class="task-item migue-task">
-                        <span class="task-number">{{ i + 1 }}</span>
-                        <span class="task-text">{{ task }}</span>
+                        class="task-item migue-task"
+                        [class.special-task]="i === 8">
+                        <span class="task-number" [class.special-number]="i === 8">{{ i + 1 }}</span>
+                        <span class="task-text" [class.special-text]="i === 8">{{ task }}</span>
                     </li>
                 </ul>
             </div>

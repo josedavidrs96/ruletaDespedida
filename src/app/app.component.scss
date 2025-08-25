@@ -488,6 +488,43 @@ body {
   50% { opacity: 1; }
 }
 
+/* Animaciones para el gajo especial dorado */
+@keyframes shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes sparkle {
+  0% {
+    background-position: -200% -200%;
+    opacity: 0;
+  }
+  50% {
+    background-position: 200% 200%;
+    opacity: 1;
+  }
+  100% {
+    background-position: 400% 400%;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-star {
+  0%, 100% {
+    transform: rotate(-9deg) scale(1);
+  }
+  50% {
+    transform: rotate(-9deg) scale(1.1);
+  }
+}
+
 /* Contenedor del resultado */
 .result-container {
   display: flex;
@@ -633,6 +670,62 @@ body {
 .migue-task {
   background: rgba(255, 107, 107, 0.2);
   border-left: 4px solid #ff6b6b;
+
+  /* Estilo especial para el reto especial en la lista */
+  &.special-task {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 237, 74, 0.3) 50%, rgba(255, 215, 0, 0.3) 100%);
+    border-left: 4px solid #ffd700;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: slide-shine 3s ease-in-out infinite;
+    }
+
+    .special-number {
+      background: linear-gradient(145deg, #ffd700, #ffed4a);
+      color: #333;
+      font-weight: bold;
+      border: 2px solid #ffd700;
+      animation: glow-number 2s ease-in-out infinite;
+    }
+
+    .special-text {
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+/* Animación para el brillo del reto especial en la lista */
+@keyframes slide-shine {
+  0% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes glow-number {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.4);
+  }
 }
 
 .couple-task {

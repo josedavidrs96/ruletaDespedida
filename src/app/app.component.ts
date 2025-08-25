@@ -25,7 +25,7 @@ export class AppComponent implements OnDestroy {
     '🔥',  // Decir tres frases muy picantes como ligando en un bar
     '🍷',  // Tomarse un shot sin usar las manos
     '📸',  // Posar como modelo erótico para fotos
-    '😏',  // Simular su "noche de bodas" en 15 segundos
+    '⭐',  // RETO ESPECIAL: Las chicas deciden qué quieren que haga Migue
     '📱',  // Grabar vídeo sexy para su futura esposa
     '💪',  // Hacer flexiones besando manos de chicas
     '🔥',  // Imitar un orgasmo en voz alta
@@ -383,7 +383,26 @@ export class AppComponent implements OnDestroy {
       fullTaskDescription = girlsTasksDescriptions[segmentIndex - 18];
     }
 
-    this.result = `🔥 Reto: ${fullTaskDescription}`;
+    // Verificar si es el reto especial (segmento 8)
+    if (segmentIndex === 8) {
+      this.result = `⭐ RETO ESPECIAL: ${fullTaskDescription}`;
+      // Añadir clase especial al resultado
+      setTimeout(() => {
+        const resultElement = document.querySelector('.result');
+        if (resultElement) {
+          resultElement.classList.add('special-result');
+        }
+      }, 100);
+    } else {
+      this.result = `🔥 Reto: ${fullTaskDescription}`;
+      // Remover clase especial si existía
+      setTimeout(() => {
+        const resultElement = document.querySelector('.result');
+        if (resultElement) {
+          resultElement.classList.remove('special-result');
+        }
+      }, 100);
+    }
   }
 
   getRotationStyle(): string {
@@ -404,7 +423,7 @@ export class AppComponent implements OnDestroy {
       '🔥 Decir tres frases muy picantes como si estuviera ligando en un bar',
       '🍷 Tomarse un shot sin usar las manos (se lo tienen que dar en la boca)',
       '📸 Posar como modelo erótico mientras las chicas le toman fotos con el móvil',
-      '😏 Simular cómo sería su "noche de bodas" en 15 segundos',
+      '⭐ RETO ESPECIAL: Las chicas pueden decidir libremente qué quieren que haga Migue (¡a su elección total!)',
       '📱 Grabar un vídeo selfie mandando un mensaje sexy para su futura esposa',
       '💪 Hacer 10 flexiones, cada vez que baje debe dar un beso en la mano a una chica diferente',
       '🔥 Imitar un orgasmo en voz alta',
