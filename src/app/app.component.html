@@ -1,55 +1,72 @@
 <div class="container">
-    <h1>{{ title }}</h1>
+    <h1 class="title">{{ title }}</h1>
 
     <!-- Ruleta -->
     <div class="roulette-container">
-        <div class="roulette" [style.transform]="getRotationStyle()">
-            <!-- Aquí irían los 8 gajos de la ruleta -->
-            <div class="segment" *ngFor="let task of allTasks; let i = index"
-                 [style.transform]="'rotate(' + (i * 18) + 'deg)'">
-                {{ task }}
+        <div class="roulette-wrapper">
+            <div class="roulette" [style.transform]="getRotationStyle()">
+                <div class="segment" *ngFor="let task of allTasks; let i = index"
+                     [style.transform]="'rotate(' + (i * 18) + 'deg)'"
+                     [class]="'segment-' + (i % 3)">
+                    <span class="segment-text">{{ task }}</span>
+                </div>
             </div>
+            <div class="pointer"></div>
+            <!-- Botón central -->
+            <button class="center-spin-button"
+                    (click)="spinWithSound()"
+                    [disabled]="isSpinning">
+                <span class="spin-icon">🎯</span>
+                <span class="spin-text">{{ isSpinning ? 'GIRANDO...' : 'GIRAR' }}</span>
+            </button>
         </div>
-        <div class="pointer"></div>
     </div>
 
-    <!-- Controles -->
-    <button class="spin-button"
-            (click)="spinWithSound()"
-            [disabled]="isSpinning">
-        {{ isSpinning ? 'Girando...' : '¡GIRAR RULETA!' }}
-    </button>
-
     <!-- Resultado -->
-    <div class="result">
-        {{ result }}
+    <div class="result-container">
+        <div class="result">{{ result }}</div>
     </div>
 
     <!-- Lista de Retos -->
-    <button class="options-button" (click)="toggleOptions()">
-        {{ showOptions ? 'Ocultar Retos' : 'Ver Todos los Retos' }}
-    </button>
+    <div class="controls-section">
+        <button class="options-button" (click)="toggleOptions()">
+            <span class="options-icon">{{ showOptions ? '👁️' : '📋' }}</span>
+            {{ showOptions ? 'Ocultar Retos' : 'Ver Todos los Retos' }}
+        </button>
 
-    <div class="options-list" *ngIf="showOptions">
-        <div class="tasks-section">
-            <h2>🔥 Para Migue:</h2>
-            <ul>
-                <li *ngFor="let task of getMigueTasksList()">{{ task }}</li>
-            </ul>
-        </div>
+        <div class="options-list" [class.show]="showOptions">
+            <div class="tasks-section">
+                <h2 class="section-title">🔥 Para Migue</h2>
+                <ul class="tasks-list">
+                    <li *ngFor="let task of getMigueTasksList(); let i = index" 
+                        class="task-item migue-task">
+                        <span class="task-number">{{ i + 1 }}</span>
+                        <span class="task-text">{{ task }}</span>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="tasks-section">
-            <h2>👩‍❤️‍👨 Para Migue + una chica:</h2>
-            <ul>
-                <li *ngFor="let task of getCoupleTasksList()">{{ task }}</li>
-            </ul>
-        </div>
+            <div class="tasks-section">
+                <h2 class="section-title">💕 Para Migue + una chica</h2>
+                <ul class="tasks-list">
+                    <li *ngFor="let task of getCoupleTasksList(); let i = index" 
+                        class="task-item couple-task">
+                        <span class="task-number">{{ i + 1 }}</span>
+                        <span class="task-text">{{ task }}</span>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="tasks-section">
-            <h2>👩 Solo para las chicas:</h2>
-            <ul>
-                <li *ngFor="let task of getGirlsTasksList()">{{ task }}</li>
-            </ul>
+            <div class="tasks-section">
+                <h2 class="section-title">👩 Solo para las chicas</h2>
+                <ul class="tasks-list">
+                    <li *ngFor="let task of getGirlsTasksList(); let i = index" 
+                        class="task-item girls-task">
+                        <span class="task-number">{{ i + 1 }}</span>
+                        <span class="task-text">{{ task }}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
