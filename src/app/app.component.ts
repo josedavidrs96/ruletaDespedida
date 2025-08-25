@@ -14,16 +14,33 @@ export class AppComponent implements OnDestroy {
   result = 'Haz clic para girar la ruleta';
   showOptions = false;
 
-  // Todas las tareas para la ruleta
+  // Todas las tareas para la ruleta (20 tareas total)
   allTasks = [
-    '🎤 Cantar',
-    '💃 Bailar',
-    '😂 Chiste',
-    '💪 Flexiones',
-    '🐶 Animal',
-    '❤️ Cumplidos',
-    '💕 Declaración',
-    '🥃 Shot'
+    // Para Migue (8 tareas)
+    '🎤 Cantar amor',
+    '💃 Bailar salsa',
+    '😂 Chiste malo',
+    '💪 15 flexiones',
+    '🐶 Imitar animal',
+    '❤️ 3 cumplidos',
+    '💕 Declaración épica',
+    '🥃 Shot tequila',
+
+    // Para Migue + chica (6 tareas)
+    '💃🕺 Dueto baile',
+    '🎤🎵 Cantar dueto',
+    '💏 Beso película',
+    '🤗 Abrazo 30s',
+    '💕 Cumplidos mutuos',
+    '📸 Foto romántica',
+
+    // Solo chicas (6 tareas)
+    '💄 Maquillar Migue',
+    '👗 Elegir outfit',
+    '💅 Manicure express',
+    '🎀 Accesorios femeninos',
+    '🎵 Canción despedida',
+    '🤳 Selfie grupal'
   ];
 
   private audioContext?: AudioContext;
@@ -156,8 +173,9 @@ export class AppComponent implements OnDestroy {
 
   private createRealisticClicks(audioContext: AudioContext, startTime: number, duration: number): void {
     // Crear clics que van desacelerando como una ruleta real, similar al video de referencia
-    const totalClicks = 150; // Más clics para mayor realismo
-    let clickInterval = 0.04; // Intervalo inicial más rápido (como en el video)
+    // Con 20 segmentos, ajustamos los clics para mayor realismo
+    const totalClicks = 180; // Clics ajustados para 20 segmentos
+    let clickInterval = 0.035; // Intervalo inicial ajustado para 20 segmentos
     let currentTime = startTime + 0.2; // Empezar casi inmediatamente
 
     for (let i = 0; i < totalClicks && currentTime < startTime + duration - 0.5; i++) {
@@ -165,11 +183,11 @@ export class AppComponent implements OnDestroy {
 
       // Desaceleración más gradual al principio, más pronunciada al final (como en el video)
       if (i < 50) {
-        clickInterval *= 1.008; // Desaceleración muy gradual al inicio
+        clickInterval *= 1.007; // Desaceleración muy gradual al inicio
       } else if (i < 100) {
         clickInterval *= 1.02; // Desaceleración moderada en el medio
       } else {
-        clickInterval *= 1.05; // Desaceleración más rápida al final
+        clickInterval *= 1.045; // Desaceleración más rápida al final
       }
 
       currentTime += clickInterval;
@@ -338,20 +356,9 @@ export class AppComponent implements OnDestroy {
   }
 
   showResult(): void {
-    const tasks = [
-      'Cantar una canción de amor',
-      'Bailar salsa por 2 minutos',
-      'Contar el chiste más malo',
-      'Hacer 15 flexiones',
-      'Imitar un animal por 1 minuto',
-      'Decir 3 cumplidos a cada amigo',
-      'Hacer una declaración de amor épica',
-      'Shot de tequila'
-    ];
-
     /**
      * Cálculo del segmento basado en la posición final de la ruleta
-     * - La ruleta tiene 8 segmentos de 45° cada uno
+     * - La ruleta tiene 20 segmentos de 18° cada uno (360° / 20 = 18°)
      * - El puntero está en la posición superior (0°)
      * - Necesitamos determinar qué segmento apunta el puntero después del giro
      */
@@ -360,9 +367,25 @@ export class AppComponent implements OnDestroy {
     // Convertir la rotación a índice de segmento
     // Como la ruleta gira en sentido horario y el primer segmento está arriba,
     // necesitamos calcular desde la posición 0° y ajustar para el sentido de giro
-    const segmentIndex = Math.floor(normalizedRotation / 45) % 8;
+    const segmentIndex = Math.floor(normalizedRotation / 18) % 20;
 
-    this.result = `🎯 Desafío: ${tasks[segmentIndex]}`;
+    // Obtener la tarea completa de la lista correspondiente
+    let fullTaskDescription = '';
+    if (segmentIndex < 8) {
+      // Tareas para Migue (índices 0-7)
+      const migueTasksDescriptions = this.getMigueTasksList();
+      fullTaskDescription = migueTasksDescriptions[segmentIndex];
+    } else if (segmentIndex < 14) {
+      // Tareas para pareja (índices 8-13, 6 tareas)
+      const coupleTasksDescriptions = this.getCoupleTasksList();
+      fullTaskDescription = coupleTasksDescriptions[segmentIndex - 8];
+    } else {
+      // Tareas para chicas (índices 14-19, 6 tareas)
+      const girlsTasksDescriptions = this.getGirlsTasksList();
+      fullTaskDescription = girlsTasksDescriptions[segmentIndex - 14];
+    }
+
+    this.result = `🎯 Desafío: ${fullTaskDescription}`;
   }
 
   getRotationStyle(): string {
@@ -392,9 +415,7 @@ export class AppComponent implements OnDestroy {
       '🎤🎵 Cantar un dueto',
       '💏 Darse un beso de película',
       '🤗 Abrazo de 30 segundos sin soltarse',
-      '👫 Caminar como recién casados',
       '💕 Decirse cumplidos mutuamente',
-      '🎭 Actuar una escena romántica',
       '📸 Posar para foto romántica'
     ];
   }
@@ -405,9 +426,7 @@ export class AppComponent implements OnDestroy {
       '👗 Elegir el outfit de Migue para mañana',
       '💅 Hacerle manicure express',
       '🎀 Ponerle accesorios femeninos',
-      '💃 Enseñarle a caminar con tacones',
       '🎵 Cantarle una canción de despedida',
-      '📝 Escribirle consejos para el matrimonio',
       '🤳 Selfie grupal con poses divertidas'
     ];
   }
