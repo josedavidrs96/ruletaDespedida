@@ -11,36 +11,36 @@ export class AppComponent implements OnDestroy {
   title = 'Despedida Migue';
   isSpinning = false;
   currentRotation = 0;
-  result = 'Haz clic para girar la ruleta';
+  result = '🔥 ¡Haz clic para girar la ruleta y descubrir tu reto picante!';
   showOptions = false;
 
-  // Todas las tareas para la ruleta (20 símbolos representativos)
+  // Todas las tareas para la ruleta (20 retos picantes)
   allTasks = [
-    // Para Migue (8 tareas)
-    '🎤',  // Cantar una canción de amor
-    '💃',  // Bailar salsa por 2 minutos
-    '😂',  // Contar el chiste más malo
-    '💪',  // Hacer 15 flexiones
-    '🐶',  // Imitar un animal por 1 minuto
-    '❤️',  // Decir 3 cumplidos a cada amigo
-    '💕',  // Hacer una declaración de amor épica
-    '🥃',  // Shot de tequila
+    // Para Migue (14 retos)
+    '🎤',  // Cantarle una serenata sexy improvisada a todas las chicas
+    '🍓',  // Hacerse un striptease frente al grupo
+    '💋',  // Dejar que una chica le pinte los labios con pintalabios rojo
+    '👅',  // Lamerse sensualmente un dedo y decir "Esto es para ti"
+    '💃',  // Bailar reguetón intenso 30 segundos
+    '🔥',  // Decir tres frases muy picantes como ligando en un bar
+    '🍷',  // Tomarse un shot sin usar las manos
+    '📸',  // Posar como modelo erótico para fotos
+    '😏',  // Simular su "noche de bodas" en 15 segundos
+    '📱',  // Grabar vídeo sexy para su futura esposa
+    '💪',  // Hacer flexiones besando manos de chicas
+    '🔥',  // Imitar un orgasmo en voz alta
+    '🍻',  // Tatuarse palabra elegida en el pecho con pintalabios
+    '🩳',  // Adivinar parte del cuerpo con ojos vendados
 
-    // Para Migue + chica (6 tareas)
-    '🕺',  // Bailar una canción romántica juntos
-    '🎵',  // Cantar un dueto
-    '💏',  // Darse un beso de película
-    '🤗',  // Abrazo de 30 segundos sin soltarse
-    '💬',  // Decirse cumplidos mutuamente
-    '📸',  // Posar para foto romántica
+    // Para Migue + chica (4 retos)
+    '🍓',  // Bailar un perreo con chica al azar
+    '💃',  // Bailar canción sensual pegados 30 segundos
+    '🥂',  // Hacer fondo de alcohol juntos
+    '💋',  // Recibir beso marcado con pintalabios
 
-    // Solo chicas (6 tareas)
-    '💄',  // Maquillar a Migue
-    '👗',  // Elegir el outfit de Migue para mañana
-    '💅',  // Hacerle manicure express
-    '🎀',  // Ponerle accesorios femeninos
-    '🎶',  // Cantarle una canción de despedida
-    '🤳'   // Selfie grupal con poses divertidas
+    // Solo chicas (2 retos)
+    '🎲',  // Inventar piropo subido de tono para Migue
+    '📱'   // Mandar audio sexy al grupo
   ];
 
   private audioContext?: AudioContext;
@@ -360,32 +360,30 @@ export class AppComponent implements OnDestroy {
      * Cálculo del segmento basado en la posición final de la ruleta
      * - La ruleta tiene 20 segmentos de 18° cada uno (360° / 20 = 18°)
      * - El puntero está en la posición superior (0°)
-     * - Necesitamos determinar qué segmento apunta el puntero después del giro
+     * - Distribución: 14 para Migue + 4 para pareja + 2 para chicas
      */
     const normalizedRotation = this.currentRotation % 360;
 
     // Convertir la rotación a índice de segmento
-    // Como la ruleta gira en sentido horario y el primer segmento está arriba,
-    // necesitamos calcular desde la posición 0° y ajustar para el sentido de giro
     const segmentIndex = Math.floor(normalizedRotation / 18) % 20;
 
     // Obtener la tarea completa de la lista correspondiente
     let fullTaskDescription = '';
-    if (segmentIndex < 8) {
-      // Tareas para Migue (índices 0-7)
+    if (segmentIndex < 14) {
+      // Retos para Migue (índices 0-13, 14 retos)
       const migueTasksDescriptions = this.getMigueTasksList();
       fullTaskDescription = migueTasksDescriptions[segmentIndex];
-    } else if (segmentIndex < 14) {
-      // Tareas para pareja (índices 8-13, 6 tareas)
+    } else if (segmentIndex < 18) {
+      // Retos para Migue + chica (índices 14-17, 4 retos)
       const coupleTasksDescriptions = this.getCoupleTasksList();
-      fullTaskDescription = coupleTasksDescriptions[segmentIndex - 8];
+      fullTaskDescription = coupleTasksDescriptions[segmentIndex - 14];
     } else {
-      // Tareas para chicas (índices 14-19, 6 tareas)
+      // Retos para chicas (índices 18-19, 2 retos)
       const girlsTasksDescriptions = this.getGirlsTasksList();
-      fullTaskDescription = girlsTasksDescriptions[segmentIndex - 14];
+      fullTaskDescription = girlsTasksDescriptions[segmentIndex - 18];
     }
 
-    this.result = `🎯 Desafío: ${fullTaskDescription}`;
+    this.result = `🔥 Reto: ${fullTaskDescription}`;
   }
 
   getRotationStyle(): string {
@@ -398,36 +396,36 @@ export class AppComponent implements OnDestroy {
 
   getMigueTasksList(): string[] {
     return [
-      '🎤 Cantar una canción de amor',
-      '💃 Bailar salsa por 2 minutos',
-      '😂 Contar el chiste más malo',
-      '💪 Hacer 15 flexiones',
-      '🐶 Imitar un animal por 1 minuto',
-      '❤️ Decir 3 cumplidos a cada amigo',
-      '💕 Hacer una declaración de amor épica',
-      '🥃 Shot de tequila'
+      '🎤 Cantarle una serenata sexy improvisada a todas las chicas',
+      '🍓 Hacerse un striptease (aunque sea con camisa o camiseta) frente al grupo',
+      '💋 Dejar que una chica al azar le pinte los labios con pintalabios rojo',
+      '👅 Lamerse sensualmente un dedo y decirle a una chica: "Esto es para ti"',
+      '💃 Bailar reguetón intenso en el centro, sin parar durante 30 segundos',
+      '🔥 Decir tres frases muy picantes como si estuviera ligando en un bar',
+      '🍷 Tomarse un shot sin usar las manos (se lo tienen que dar en la boca)',
+      '📸 Posar como modelo erótico mientras las chicas le toman fotos con el móvil',
+      '😏 Simular cómo sería su "noche de bodas" en 15 segundos',
+      '📱 Grabar un vídeo selfie mandando un mensaje sexy para su futura esposa',
+      '💪 Hacer 10 flexiones, cada vez que baje debe dar un beso en la mano a una chica diferente',
+      '🔥 Imitar un orgasmo en voz alta',
+      '🍻 Las chicas eligen una palabra y Migue debe tatuársela en el pecho con pintalabios',
+      '🩳 Dejarse vendar los ojos y adivinar qué parte del cuerpo de una chica toca (sin zonas íntimas)'
     ];
   }
 
   getCoupleTasksList(): string[] {
     return [
-      '💃🕺 Bailar una canción romántica juntos',
-      '🎤🎵 Cantar un dueto',
-      '💏 Darse un beso de película',
-      '🤗 Abrazo de 30 segundos sin soltarse',
-      '💕 Decirse cumplidos mutuamente',
-      '📸 Posar para foto romántica'
+      '🍓 Bailar un perreo con una chica elegida al azar',
+      '💃 Bailar una canción sensual que ponga la banda en pareja (mínimo 30 segundos pegados)',
+      '🥂 Hacer un "fondo de alcohol" con una chica al mismo tiempo. El que tarde más recibe un reto extra',
+      '💋 Una chica le deja un beso marcado con pintalabios en el cuello o cara, y Migue debe mantenerlo hasta el siguiente reto'
     ];
   }
 
   getGirlsTasksList(): string[] {
     return [
-      '💄 Maquillar a Migue',
-      '👗 Elegir el outfit de Migue para mañana',
-      '💅 Hacerle manicure express',
-      '🎀 Ponerle accesorios femeninos',
-      '🎵 Cantarle una canción de despedida',
-      '🤳 Selfie grupal con poses divertidas'
+      '🎲 Inventar un piropo subido de tono y gritárselo a Migue',
+      '📱 Mandar un audio sexy al grupo diciendo: "Migue es el amor de mi vida"'
     ];
   }
 
@@ -439,9 +437,9 @@ export class AppComponent implements OnDestroy {
    * Obtiene la categoría de tarea según el índice
    */
   getTaskCategory(index: number): string {
-    if (index < 8) return 'migue';
-    if (index < 14) return 'couple';
-    return 'girls';
+    if (index < 14) return 'migue';      // Índices 0-13 (14 retos)
+    if (index < 18) return 'couple';     // Índices 14-17 (4 retos)
+    return 'girls';                      // Índices 18-19 (2 retos)
   }
 
   /**
@@ -459,14 +457,14 @@ export class AppComponent implements OnDestroy {
         break;
       case 'couple':
         taskList = this.getCoupleTasksList();
-        adjustedIndex = index - 8;
+        adjustedIndex = index - 14;
         break;
       case 'girls':
         taskList = this.getGirlsTasksList();
-        adjustedIndex = index - 14;
+        adjustedIndex = index - 18;
         break;
     }
 
-    return taskList[adjustedIndex] || 'Tarea desconocida';
+    return taskList[adjustedIndex] || 'Reto desconocido';
   }
 } 
