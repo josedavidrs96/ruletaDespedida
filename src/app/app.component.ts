@@ -14,33 +14,33 @@ export class AppComponent implements OnDestroy {
   result = 'Haz clic para girar la ruleta';
   showOptions = false;
 
-  // Todas las tareas para la ruleta (20 tareas total)
+  // Todas las tareas para la ruleta (20 símbolos representativos)
   allTasks = [
     // Para Migue (8 tareas)
-    '🎤 Cantar amor',
-    '💃 Bailar salsa',
-    '😂 Chiste malo',
-    '💪 15 flexiones',
-    '🐶 Imitar animal',
-    '❤️ 3 cumplidos',
-    '💕 Declaración épica',
-    '🥃 Shot tequila',
+    '🎤',  // Cantar una canción de amor
+    '💃',  // Bailar salsa por 2 minutos
+    '😂',  // Contar el chiste más malo
+    '💪',  // Hacer 15 flexiones
+    '🐶',  // Imitar un animal por 1 minuto
+    '❤️',  // Decir 3 cumplidos a cada amigo
+    '💕',  // Hacer una declaración de amor épica
+    '🥃',  // Shot de tequila
 
     // Para Migue + chica (6 tareas)
-    '💃🕺 Dueto baile',
-    '🎤🎵 Cantar dueto',
-    '💏 Beso película',
-    '🤗 Abrazo 30s',
-    '💕 Cumplidos mutuos',
-    '📸 Foto romántica',
+    '🕺',  // Bailar una canción romántica juntos
+    '🎵',  // Cantar un dueto
+    '💏',  // Darse un beso de película
+    '🤗',  // Abrazo de 30 segundos sin soltarse
+    '💬',  // Decirse cumplidos mutuamente
+    '📸',  // Posar para foto romántica
 
     // Solo chicas (6 tareas)
-    '💄 Maquillar Migue',
-    '👗 Elegir outfit',
-    '💅 Manicure express',
-    '🎀 Accesorios femeninos',
-    '🎵 Canción despedida',
-    '🤳 Selfie grupal'
+    '💄',  // Maquillar a Migue
+    '👗',  // Elegir el outfit de Migue para mañana
+    '💅',  // Hacerle manicure express
+    '🎀',  // Ponerle accesorios femeninos
+    '🎶',  // Cantarle una canción de despedida
+    '🤳'   // Selfie grupal con poses divertidas
   ];
 
   private audioContext?: AudioContext;
