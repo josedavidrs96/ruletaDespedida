@@ -6,15 +6,19 @@
         <div class="roulette-wrapper">
             <div class="roulette" [style.transform]="getRotationStyle()">
                 <div class="segment" *ngFor="let task of allTasks; let i = index"
-                     [style.transform]="'rotate(' + (i * 18) + 'deg)'">
-                    <span class="segment-text">{{ task }}</span>
+                     [style.transform]="'rotate(' + (i * 18) + 'deg)'"
+                     [attr.data-segment]="i">
+                    <div class="segment-content">
+                        <span class="segment-text">{{ task }}</span>
+                    </div>
                 </div>
             </div>
             <div class="pointer"></div>
             <!-- Botón central -->
             <button class="center-spin-button"
                     (click)="spinWithSound()"
-                    [disabled]="isSpinning">
+                    [disabled]="isSpinning"
+                    [attr.aria-label]="isSpinning ? 'Girando la ruleta' : 'Girar la ruleta'">
                 <span class="spin-text">{{ isSpinning ? 'GIRANDO...' : '¡GIRAR!' }}</span>
             </button>
         </div>
@@ -22,17 +26,19 @@
 
     <!-- Resultado -->
     <div class="result-container">
-        <div class="result">{{ result }}</div>
+        <div class="result" [attr.aria-live]="'polite'">{{ result }}</div>
     </div>
 
     <!-- Lista de Retos -->
     <div class="controls-section">
-        <button class="options-button" (click)="toggleOptions()">
+        <button class="options-button" 
+                (click)="toggleOptions()"
+                [attr.aria-expanded]="showOptions">
             <span class="options-icon">{{ showOptions ? '👁️' : '📋' }}</span>
             {{ showOptions ? 'Ocultar Retos' : 'Ver Todos los Retos' }}
         </button>
 
-        <div class="options-list" [class.show]="showOptions">
+        <div class="options-list" [class.show]="showOptions" [attr.aria-hidden]="!showOptions">
             <div class="tasks-section">
                 <h2 class="section-title">🔥 Para Migue</h2>
                 <ul class="tasks-list">

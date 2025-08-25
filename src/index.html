@@ -2,15 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <title>Despedida Migue</title>
+  <title>🎉 Despedida Migue - Ruleta de Retos</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="description" content="Ruleta interactiva para la despedida de soltero de Migue con retos divertidos">
+  <meta name="theme-color" content="#667eea">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* CSS crítico para evitar FOUC */
+    app-root { 
+      display: block; 
+      min-height: 100vh; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+  </style>
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; font-family: Arial, sans-serif;">
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+        <div>Cargando Ruleta...</div>
+      </div>
+    </div>
+  </app-root>
 </body>
 </html>
