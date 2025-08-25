@@ -462,6 +462,13 @@ export class AppComponent implements OnDestroy {
   }
 
   /**
+   * Verifica si un segmento es el especial (estrella)
+   */
+  isSpecialSegment(index: number): boolean {
+    return index === 8;
+  }
+
+  /**
    * Obtiene la descripción completa de una tarea según su índice
    */
   getTaskDescription(index: number): string {

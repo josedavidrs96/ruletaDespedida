@@ -570,10 +570,32 @@ body {
 
 @keyframes glow-zone {
   0%, 100% {
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, rgba(255, 215, 0, 0.2) 40%, transparent 70%) !important;
   }
   50% {
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.5) 0%, transparent 80%);
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0.3) 40%, transparent 80%) !important;
+  }
+}
+
+@keyframes inner-glow {
+  0%, 100% {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.2) 0%, transparent 60%);
+    opacity: 0.7;
+  }
+  50% {
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+    opacity: 1;
+  }
+}
+
+@keyframes outer-glow {
+  0%, 100% {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 50%);
+    transform: scale(1);
+  }
+  50% {
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.5) 0%, transparent 60%);
+    transform: scale(1.1);
   }
 }
 
