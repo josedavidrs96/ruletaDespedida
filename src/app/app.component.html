@@ -1,23 +1,29 @@
 <div class="container">
     <h1 class="title">{{ title }}</h1>
 
-    <!-- Ruleta -->
+    <!-- Ruleta Optimizada -->
     <div class="roulette-container">
         <div class="roulette-wrapper">
             <div class="roulette" [style.transform]="getRotationStyle()">
+                <!-- Segmentos con emojis en zona exterior -->
                 <div class="segment" *ngFor="let task of allTasks; let i = index"
-                     [attr.data-segment]="i">
-                    <div class="segment-content">
-                        <span class="segment-text">{{ task }}</span>
+                     [attr.data-segment]="i"
+                     [attr.data-task-category]="getTaskCategory(i)"
+                     [title]="getTaskDescription(i)">
+                    <div class="segment-inner">
+                        <div class="segment-emoji-zone">
+                            <span class="segment-emoji">{{ task }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="pointer"></div>
-            <!-- Botón central -->
+            <div class="pointer" title="Selector de la ruleta"></div>
+            <!-- Botón central optimizado -->
             <button class="center-spin-button"
                     (click)="spinWithSound()"
                     [disabled]="isSpinning"
-                    [attr.aria-label]="isSpinning ? 'Girando la ruleta' : 'Girar la ruleta'">
+                    [attr.aria-label]="isSpinning ? 'Girando la ruleta' : 'Girar la ruleta'"
+                    type="button">
                 <span class="spin-text">{{ isSpinning ? 'GIRANDO...' : '¡GIRAR!' }}</span>
             </button>
         </div>
@@ -32,13 +38,14 @@
     <div class="controls-section">
         <button class="options-button" 
                 (click)="toggleOptions()"
-                [attr.aria-expanded]="showOptions">
+                [attr.aria-expanded]="showOptions"
+                type="button">
             <span class="options-icon">{{ showOptions ? '👁️' : '📋' }}</span>
             {{ showOptions ? 'Ocultar Retos' : 'Ver Todos los Retos' }}
         </button>
 
         <div class="options-list" [class.show]="showOptions" [attr.aria-hidden]="!showOptions">
-            <div class="tasks-section">
+            <div class="tasks-section migue-section">
                 <h2 class="section-title">🔥 Para Migue</h2>
                 <ul class="tasks-list">
                     <li *ngFor="let task of getMigueTasksList(); let i = index" 
@@ -49,7 +56,7 @@
                 </ul>
             </div>
 
-            <div class="tasks-section">
+            <div class="tasks-section couple-section">
                 <h2 class="section-title">💕 Para Migue + una chica</h2>
                 <ul class="tasks-list">
                     <li *ngFor="let task of getCoupleTasksList(); let i = index" 
@@ -60,7 +67,7 @@
                 </ul>
             </div>
 
-            <div class="tasks-section">
+            <div class="tasks-section girls-section">
                 <h2 class="section-title">👩 Solo para las chicas</h2>
                 <ul class="tasks-list">
                     <li *ngFor="let task of getGirlsTasksList(); let i = index" 

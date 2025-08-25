@@ -434,4 +434,39 @@ export class AppComponent implements OnDestroy {
   toggleOptions(): void {
     this.showOptions = !this.showOptions;
   }
+
+  /**
+   * Obtiene la categoría de tarea según el índice
+   */
+  getTaskCategory(index: number): string {
+    if (index < 8) return 'migue';
+    if (index < 14) return 'couple';
+    return 'girls';
+  }
+
+  /**
+   * Obtiene la descripción completa de una tarea según su índice
+   */
+  getTaskDescription(index: number): string {
+    const category = this.getTaskCategory(index);
+    let taskList: string[] = [];
+    let adjustedIndex = index;
+
+    switch (category) {
+      case 'migue':
+        taskList = this.getMigueTasksList();
+        adjustedIndex = index;
+        break;
+      case 'couple':
+        taskList = this.getCoupleTasksList();
+        adjustedIndex = index - 8;
+        break;
+      case 'girls':
+        taskList = this.getGirlsTasksList();
+        adjustedIndex = index - 14;
+        break;
+    }
+
+    return taskList[adjustedIndex] || 'Tarea desconocida';
+  }
 } 

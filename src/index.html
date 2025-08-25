@@ -4,28 +4,45 @@
   <meta charset="utf-8">
   <title>🎉 Despedida Migue - Ruleta de Retos</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <meta name="description" content="Ruleta interactiva para la despedida de soltero de Migue con retos divertidos">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="Ruleta interactiva para la despedida de soltero de Migue con retos divertidos y emojis grandes">
   <meta name="theme-color" content="#667eea">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Preload para mejor rendimiento de emojis -->
+  <link rel="preload" href="https://fonts.gstatic.com/s/notocoloremoji/v25/Yq6P-KqIXTD0t4D9z1ESnKM3-HpFab5s79iz64w.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    /* CSS crítico para evitar FOUC */
+    /* CSS crítico optimizado para emojis */
     app-root { 
       display: block; 
       min-height: 100vh; 
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
+    /* Optimización inicial para emojis */
+    .loading-emoji {
+      font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+      font-size: 3rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
   </style>
 </head>
 <body>
   <app-root>
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; font-family: Arial, sans-serif;">
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; font-family: 'Poppins', Arial, sans-serif;">
       <div style="text-align: center;">
-        <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
-        <div>Cargando Ruleta...</div>
+        <div class="loading-emoji">🎯</div>
+        <div style="margin-top: 1rem; font-size: 1.1rem; font-weight: 500;">Cargando Ruleta de Retos...</div>
+        <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">Preparando emojis grandes y coloridos</div>
       </div>
     </div>
   </app-root>

@@ -7,8 +7,10 @@
 
 html {
   height: 100%;
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   font-display: swap;
+  /* Optimización para emojis */
+  font-variant-emoji: unicode;
 }
 
 body {
@@ -19,6 +21,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Soporte optimizado para emojis */
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
 }
 
 app-root {
@@ -27,13 +32,33 @@ app-root {
   width: 100%;
 }
 
-/* Mejorar rendimiento en dispositivos móviles */
+/* Optimizaciones para rendimiento y emojis */
 @media (max-width: 768px) {
   * {
     -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   body {
     background-attachment: scroll;
+    /* Optimización GPU en móviles */
+    transform: translate3d(0, 0, 0);
   }
+
+  /* Optimización específica para emojis en móvil */
+  .segment-emoji {
+    -webkit-font-smoothing: subpixel-antialiased;
+    text-rendering: geometricPrecision;
+  }
+}
+
+/* Mejoras para emojis en todos los dispositivos */
+.segment-emoji {
+  /* Soporte mejorado para emojis */
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', 'Android Emoji', sans-serif;
+  font-variant-emoji: unicode;
+  text-decoration: none;
+  outline: none;
 }

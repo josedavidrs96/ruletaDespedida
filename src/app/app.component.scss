@@ -241,6 +241,8 @@ body {
   width: 450px;
   height: 450px;
   margin: 0 auto;
+  /* Asegurar proporciones perfectas */
+  aspect-ratio: 1 / 1;
 
   @media (max-width: 768px) {
     width: 350px;
@@ -267,9 +269,11 @@ body {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   background: transparent;
+  /* Asegurar que sea perfectamente circular */
+  aspect-ratio: 1 / 1;
 }
 
-/* Segmentos de la ruleta - Triángulos que ocupan toda la circunferencia */
+/* Segmentos de la ruleta - Triángulos perfectamente uniformes de 18° cada uno */
 .segment {
   position: absolute;
   width: 100%;
@@ -277,11 +281,13 @@ body {
   left: 0;
   top: 0;
   transform-origin: center;
-  clip-path: polygon(50% 50%, 40% 0%, 60% 0%);
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  /* Clip-path optimizado para máximo espacio en la zona exterior */
+  /* Triángulos que van desde el centro hasta el borde completo */
+  clip-path: polygon(50% 50%, 43% 0%, 57% 0%);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
   box-sizing: border-box;
 
-  /* Asegurar que cada segmento tenga exactamente 18 grados (360/20) */
+  /* Rotación exacta para cada segmento - 18° cada uno */
   &:nth-child(1) { transform: rotate(0deg); }
   &:nth-child(2) { transform: rotate(18deg); }
   &:nth-child(3) { transform: rotate(36deg); }
@@ -322,67 +328,73 @@ body {
 
 .segment-content {
   position: absolute;
-  top: 30%;
+  top: 75%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: auto;
 }
 
 .segment-text {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   text-align: center;
   line-height: 1;
   transform: rotate(-9deg);
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.9));
   color: white;
   font-weight: bold;
+  /* Asegurar que todos los emojis ocupen el mismo espacio */
+  display: block;
+  width: 1em;
+  height: 1em;
 
   @media (max-width: 768px) {
-    font-size: 1.8rem;
+    font-size: 2.3rem;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
   }
 }
 
-/* Puntero de la ruleta */
+/* Puntero de la ruleta - Apunta hacia la zona exterior donde están los emojis */
 .pointer {
   position: absolute;
-  top: -8px;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 25px solid #ffd700;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 30px solid #ffd700;
   z-index: 15;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 
   @media (max-width: 768px) {
+    border-left-width: 12px;
+    border-right-width: 12px;
+    border-top-width: 24px;
+  }
+
+  @media (max-width: 480px) {
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 20px;
   }
-
-  @media (max-width: 480px) {
-    border-left-width: 8px;
-    border-right-width: 8px;
-    border-top-width: 16px;
-  }
 }
 
-/* Botón central de girar */
+/* Botón central de girar - Más pequeño para dar más espacio a los segmentos */
 .center-spin-button {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(145deg, #ffd700, #ffed4a);
   border: 3px solid #fff;
@@ -398,13 +410,13 @@ body {
   -webkit-backface-visibility: hidden;
 
   @media (max-width: 768px) {
-    width: 55px;
-    height: 55px;
+    width: 48px;
+    height: 48px;
   }
 
   @media (max-width: 480px) {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
 
   &:hover:not(:disabled) {
@@ -419,6 +431,22 @@ body {
     opacity: 0.7;
     cursor: not-allowed;
     animation: spin-pulse 1s infinite;
+  }
+}
+
+.spin-text {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.45rem;
   }
 }
 
