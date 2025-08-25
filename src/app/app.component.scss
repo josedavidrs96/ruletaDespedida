@@ -258,7 +258,7 @@ body {
   transition: transform 10s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   border: 6px solid #ffffff;
-  overflow: hidden;
+  overflow: visible;
   will-change: transform;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -273,94 +273,92 @@ body {
   height: 50%;
   left: 50%;
   top: 50%;
-  transform-origin: left bottom;
-  clip-path: polygon(0 100%, 0 0, 31.17% 0, 0 100%);
+  transform-origin: 0% 100%;
+  clip-path: polygon(0% 100%, 0% 0%, 30.9% 0%);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 20px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding-top: 25px;
+  padding-left: 8px;
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
   box-sizing: border-box;
 
   @media (max-width: 768px) {
-    padding-top: 16px;
-    border-width: 1.5px;
+    padding-top: 20px;
+    padding-left: 6px;
   }
 
   @media (max-width: 480px) {
-    padding-top: 12px;
-    border-width: 1px;
+    padding-top: 16px;
+    padding-left: 5px;
   }
 }
 
-.segment-0 {
-  background: #ff6b6b;
+.segment:nth-child(4n+1) {
+  background: #ff6b6b; /* Rojo */
 }
 
-.segment-1 {
-  background: #4ecdc4;
+.segment:nth-child(4n+2) {
+  background: #4ecdc4; /* Verde agua */
 }
 
-.segment-2 {
-  background: #feca57;
+.segment:nth-child(4n+3) {
+  background: #feca57; /* Amarillo */
 }
 
-.segment:nth-child(5n+1) {
-  background: #ff6b6b;
-}
-
-.segment:nth-child(5n+2) {
-  background: #4ecdc4;
-}
-
-.segment:nth-child(5n+3) {
-  background: #feca57;
-}
-
-.segment:nth-child(5n+4) {
-  background: #a29bfe;
-}
-
-.segment:nth-child(5n) {
-  background: #fd79a8;
+.segment:nth-child(4n) {
+  background: #a29bfe; /* Morado */
 }
 
 .segment-text {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-align: center;
   line-height: 1;
   transform: rotate(-9deg);
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  text-shadow: 
+    2px 2px 0px rgba(0, 0, 0, 0.8),
+    -1px -1px 0px rgba(0, 0, 0, 0.8),
+    1px -1px 0px rgba(0, 0, 0, 0.8),
+    -1px 1px 0px rgba(0, 0, 0, 0.8);
   font-weight: bold;
+  margin-left: 5px;
 
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    margin-left: 4px;
   }
 
   @media (max-width: 480px) {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    margin-left: 3px;
   }
 }
 
 /* Puntero de la ruleta */
 .pointer {
   position: absolute;
-  top: -10px;
+  top: -8px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 30px solid #ffd700;
-  z-index: 10;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 25px solid #ffd700;
+  z-index: 15;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 
   @media (max-width: 768px) {
-    border-left-width: 12px;
-    border-right-width: 12px;
-    border-top-width: 24px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 20px;
+  }
+
+  @media (max-width: 480px) {
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 16px;
   }
 }
 
